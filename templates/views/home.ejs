@@ -1,0 +1,48 @@
+<%- include('partials/header'); -%>
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <%jobs.forEach(function(job) {%>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm" style="min-height: 36em;">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                    </svg>
+                    <div class="card-body">
+                        <form action="/action" method="post">
+                            <div class="card-text">
+                                <p>Id: <%= job.jobID %></p>
+                                <p>Company Name: <%= job.companyName %></p>
+                                <p>Comapny Sector: <%= job.companySector %></p>
+                                <p>Profile: <%= job.profile %></p>
+                                <p>CTC: <%= job.ctc %> LPA</p>
+                                <% if (job.eligibility != null) { %>
+                                    <p>CGPA Required: <%= job.eligibility.cgpa %></p>
+                                    <p> Eligible branches:  <%=job.eligibility.branch %></p>
+                                    <%} else { %>
+                                    <p></p>
+                                    <% } %>
+                            </div>
+                            <!-- <p name="jobDescription" class="card-text">
+                                <%=job.jobDescription.substring(0, 50) + " ..."%>
+                                <a href="/jobs/<%=job.jobID%>">Read More</a>
+                            </p> -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button name="buttonAction" value="view<%=job._id%>" type="submit" class="btn btn-sm btn-outline-secondary">View</button>
+                                    <button name="buttonAction" value="aply<%=job._id%>" type="submit" class="btn btn-sm btn-outline-secondary">Apply</button>
+                                </div>
+                                <small class="text-muted"><%= job.dateOfPost.getDate() %>-<%= job.dateOfPost.getMonth() %>-<%= job.dateOfPost.getFullYear() %></small>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <%});%>
+
+        </div>
+    </div>
+</div>
+<div style="min-height: 10em;"></div>
+<%- include('partials/footer'); -%>

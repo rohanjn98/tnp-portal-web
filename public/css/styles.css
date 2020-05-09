@@ -1,0 +1,29 @@
+body {
+    padding-top: 5rem;
+}
+
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+footer {
+    padding: 1rem;
+}
+
+.mycolor {
+    color: white;
+}
+
+.mybutton {
+    margin-top: 1.5rem;
+}
+
+
+.conditional_form_part_address {
+  display: block;
+}
+
+.conditional_form_part_activator_address:checked + .conditional_form_part_address {
+  display: none;
+}

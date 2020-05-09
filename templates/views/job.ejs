@@ -1,0 +1,16 @@
+<%- include('partials/header-add-job'); -%>
+
+<div class="container bg-light ">
+  <h1 style="margin-top: 3rem">Job Details</h1>
+  <p>Company Name: <%= job.companyName %></p>
+  <p>Comapny Sector: <%= job.companySector %></p>
+  <p>Profile: <%= job.profile %></p>
+  <p>CTC: <%= job.ctc %> LPA</p>
+  <p>CGPA Required: <%= job.cgpa %></p>
+  <p>Eligibility:</p>
+  <h6>Branches: <%= job.eligibility.branch %></h6>
+  <h6>CGPA: <%= job.eligibility.cgpa %></h6>
+  <p>Job Description: <%=job.jobDescription%></p>
+</div>
+
+<%- include('partials/footer'); -%>
