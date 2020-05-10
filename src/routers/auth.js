@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
 
-const {signup, signin, signout, showLoginPage, showSignupPage, ensureAuthenticated} = require("../controllers/auth");
+const {signup, signin, signout, showLoginPage, showSignupPage, ensureAuthenticated } = require("../controllers/auth");
 
 router.get("/login", showLoginPage)
 

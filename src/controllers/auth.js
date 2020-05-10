@@ -35,11 +35,15 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/home',
-    failureRedirect: '/login',
-    failureFlash: true
-  })(req, res, next);
+  if (req.isAuthenticated()) {
+    res.redirect('/home')
+  } else {
+    passport.authenticate('local', {
+      successRedirect: '/home',
+      failureRedirect: '/login',
+      failureFlash: true
+    })(req, res, next);
+  }
 };
 
 exports.signout = (req, res) => {
@@ -49,11 +53,19 @@ exports.signout = (req, res) => {
 };
 
 exports.showLoginPage = (req, res) => {
-  res.render("login")
+  if (req.user) {
+    res.redirect('/home')
+  } else {
+    res.render("login")  
+  }
 }
 
 exports.showSignupPage = (req, res) => {
-  res.render("signup")
+  if (req.user) {
+    res.redirect('/home')
+  } else {
+    res.render("signup")
+  }
 }
 
 exports.ensureAuthenticated = (req, res, next) => {
