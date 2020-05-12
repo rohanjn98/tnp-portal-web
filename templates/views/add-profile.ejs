@@ -1,272 +1,468 @@
 <%- include('partials/header-add-job'); -%>
 
 <div class="container">
+  <h1 style="margin-top: 3rem;">My Profile</h1>
 
-    <h1 style="margin-top: 3rem">My Profile</h1>
+  <h3 style="margin-top: 3rem;">Basic Details</h3>
+  <hr />
+  <form class="" action="/student" method="POST">
+    <div class="form-row">
+      <div class="form-group col-md-4 mb-3">
+        <label for="exampleFormControlInput1">First Name</label>
+        <input
+          name="firstName"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          value="<%= Student.firstName %>"
+        />
+      </div>
+      <div class="form-group col-md-4 mb-3">
+        <label for="exampleFormControlInput1">Middle Name</label>
+        <input
+          name="middleName"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+      <div class="form-group col-md-4 mb-3">
+        <label for="exampleFormControlInput1">Last Name</label>
+        <input
+          name="lastName"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          value="<%= Student.lastName %>"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Email</label>
+      <input
+        name="email"
+        type="email"
+        class="form-control"
+        id="exampleFormControlInput1"
+        value="<%= Student.email %>"
+      />
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Branch</label>
+      <select
+        name="department"
+        class="custom-select"
+        id="validationDefault04"
+        required
+      >
+        <option selected disabled value="">Choose...</option>
+        <option>B.Tech. Electronics and Communication Engineering</option>
+        <option>B.Tech. Computer Science Engineering</option>
+        <option>B.Tech. Electrical and Electronics Engineering</option>
+        <option>B.Tech. Mechanical Engineering</option>
+        <option>B.Tech. Civil Engineering</option>
+        <option>B.Tech. Metallurgy and Materials Engineering</option>
+        <option>B.Tech. Chemical Engineering</option>
+        <option>B.Tech. Mining Engineering</option>
+        <option>M.Tech.</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="exampleFormControlInput1">ID Number</label>
+        <input
+          name="idNo"
+          type="number"
+          class="form-control"
+          id="exampleFormControlInput1"
+          value="<%= Student.idNo %>"
+        />
+      </div>
+      <div class="form-group col-md-6 mb-3">
+        <label for="exampleFormControlInput1">Enrollment Number</label>
+        <input
+          name="enrollment"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+          value="<%= Student.enrollment %>"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="exampleFormControlInput1">Year</label>
+        <select name="year" class="custom-select" id="validationDefault04">
+          <option selected disabled value="">Choose...</option>
+          <option>First</option>
+          <option>Second</option>
+          <option>Third</option>
+          <option>Fourth</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 mb-3">
+        <label for="exampleFormControlInput1">CGPA (current)</label>
+        <input
+          name="cgpa"
+          type="number"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="exampleFormControlInput1">Date of Birth</label>
+        <input
+          name="dob"
+          type="date"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+      <div class="form-group col-md-6 mb-3">
+        <label for="exampleFormControlInput1">Contact</label>
+        <input
+          name="contact"
+          type="number"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="exampleFormControlInput1">Gender</label>
+        <select name="gender" class="custom-select" id="validationDefault04">
+          <option selected disabled value="">Choose...</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Prefer Not To Say</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 mb-3">
+        <label for="exampleFormControlInput1">Category</label>
+        <select name="category" class="custom-select" id="validationDefault04">
+          <option selected disabled value="">Choose...</option>
+          <option>SC</option>
+          <option>ST</option>
+          <option>OBC</option>
+          <option>General</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">PWD</label>
+      <select name="pwd" class="custom-select" id="validationDefault04">
+        <option selected disabled value="">Choose...</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+    </div>
 
-    <h3 style="margin-top: 3rem">Basic Details</h3>
-    <hr>
-    <form class="" action="/student" method="POST">
+    <h3 style="margin-top: 3rem;">Address</h3>
+    <hr />
+    <label for="exampleFormControlInput1">Permanent Address</label>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Address Line 1</label>
+      <input
+        name="address[0][addressLine1]"
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+      />
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Address Line 2</label>
+      <input
+        name="address[0][addressLine2]"
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+      />
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4 mb-3">
+        <label for="exampleFormControlInput1">City</label>
+        <input
+          name="address[0][city]"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+      <div class="form-group col-md-4 mb-3">
+        <label for="exampleFormControlInput1">State</label>
+        <input
+          name="address[0][state]"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+      <div class="form-group col-md-4 mb-3">
+        <label for="exampleFormControlInput1">Country</label>
+        <input
+          name="address[0][country]"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+    </div>
+
+    <input class="conditional_form_part_activator_address" type="checkbox" />
+    Current Address same as Permanent Address
+
+    <div class="conditional_form_part_address">
+      <br />
+      <label for="exampleFormControlInput1">Current Address</label>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Address Line 1</label>
+        <input
+          name="address[1][addressLine1]"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Address Line 2</label>
+        <input
+          name="address[1][addressLine2]"
+          type="text"
+          class="form-control"
+          id="exampleFormControlInput1"
+        />
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4 mb-3">
+          <label for="exampleFormControlInput1">City</label>
+          <input
+            name="address[1][city]"
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+          />
+        </div>
+        <div class="form-group col-md-4 mb-3">
+          <label for="exampleFormControlInput1">State</label>
+          <input
+            name="address[1][state]"
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+          />
+        </div>
+        <div class="form-group col-md-4 mb-3">
+          <label for="exampleFormControlInput1">Country</label>
+          <input
+            name="address[1][country]"
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div id="parentDivEducation">
+      <div id="duplicaterEducation">
+        <h3 style="margin-top: 3rem;">Education 1</h3>
+        <hr />
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Institue Name</label>
+          <input
+            name="education[][institute]"
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Degree</label>
+          <input
+            name="education[][degree]"
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+          />
+        </div>
         <div class="form-row">
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">First Name</label>
-                <input name="firstName" type="text" class="form-control" id="exampleFormControlInput1" value="<%= Student.firstName %>">
-            </div>
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">Middle Name</label>
-                <input name="middleName" type="text" class="form-control" id="exampleFormControlInput1">
-            </div>
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">Last Name</label>
-                <input name="lastName" type="text" class="form-control" id="exampleFormControlInput1" value="<%= Student.lastName %>">
-            </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="exampleFormControlInput1">Start Date</label>
+            <input
+              name="education[][startDate]"
+              type="date"
+              class="form-control"
+              id="exampleFormControlInput1"
+            />
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="exampleFormControlInput1">End Date</label>
+            <input
+              name="education[][endDate]"
+              type="date"
+              class="form-control"
+              id="exampleFormControlInput1"
+            />
+          </div>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlInput1">Email</label>
-            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" value="<%= Student.email %>">
+          <label for="exampleFormControlInput1">CGPA</label>
+          <input
+            name="education[][cgpa]"
+            type="number"
+            class="form-control"
+            id="exampleFormControlInput1"
+          />
         </div>
+      </div>
+    </div>
+
+    <a href="#container" id="addEducation" onclick="duplicateDivEducation()"
+      >Add Education</a
+    >
+    <a
+      style="visibility: hidden;"
+      href="#container"
+      id="deleteEducation"
+      onclick="deleteEducation()"
+    >
+      | <span style="color: #ff0000;">Delete Education</span></a
+    >
+
+    <div id="parentDivExperience">
+      <div id="duplicaterExperience">
+        <h3 style="margin-top: 3rem;">Experience 1</h3>
+        <hr />
         <div class="form-group">
-            <label for="exampleFormControlInput1">Branch</label>
-            <select name="department" class="custom-select" id="validationDefault04" required>
-                <option selected disabled value="">Choose...</option>
-                <option>B.Tech. Electronics and Communication Engineering</option>
-                <option>B.Tech. Computer Science Engineering</option>
-                <option>B.Tech. Electrical and Electronics Engineering</option>
-                <option>B.Tech. Mechanical Engineering</option>
-                <option>B.Tech. Civil Engineering</option>
-                <option>B.Tech. Metallurgy and Materials Engineering</option>
-                <option>B.Tech. Chemical Engineering</option>
-                <option>B.Tech. Mining Engineering</option>
-                <option>M.Tech.</option>
+          <label for="exampleFormControlInput1"
+            >Company/Organization Name</label
+          >
+          <input
+            name="experience[][organization]"
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+          />
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6 mb-3">
+            <label for="exampleFormControlInput1">Experience Title</label>
+            <input
+              name="experience[][experienceTitle]"
+              type="text"
+              class="form-control"
+              id="exampleFormControlInput1"
+            />
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="exampleFormControlInput1">Employment Type</label>
+            <select
+              name="experience[][employmentType]"
+              class="custom-select"
+              id="validationDefault04"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option>Full-Time</option>
+              <option>Part-Time</option>
+              <option>Self-Employed</option>
+              <option>Freelance</option>
+              <option>Contract</option>
+              <option>Internship</option>
+              <option>Apprenticeship</option>
             </select>
+          </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="exampleFormControlInput1">ID Number</label>
-                <input name="idNo" type="number" class="form-control" id="exampleFormControlInput1" value="<%= Student.idNo %>">
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label for="exampleFormControlInput1">Enrollment Number</label>
-                <input name="enrollment" type="text" class="form-control" id="exampleFormControlInput1" value="<%= Student.enrollment %>">
-            </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="exampleFormControlInput1">Start Date</label>
+            <input
+              name="experience[][startDate]"
+              type="date"
+              class="form-control"
+              id="exampleFormControlInput1"
+            />
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label for="exampleFormControlInput1">End Date</label>
+            <input
+              name="experience[][endDate]"
+              type="date"
+              class="form-control"
+              id="exampleFormControlInput1"
+            />
+          </div>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="exampleFormControlInput1">Year</label>
-                <select name="year" class="custom-select" id="validationDefault04">
-                    <option selected disabled value="">Choose...</option>
-                    <option>First</option>
-                    <option>Second</option>
-                    <option>Third</option>
-                    <option>Fourth</option>
-                </select>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label for="exampleFormControlInput1">CGPA (current)</label>
-                <input name="cgpa" type="number" class="form-control" id="exampleFormControlInput1">
-            </div>
+      </div>
+    </div>
+
+    <a href="#container" id="addExperience" onclick="duplicateDivExperience()"
+      >Add Experience</a
+    >
+    <a
+      style="visibility: hidden;"
+      href="#container"
+      id="deleteExperience"
+      onclick="deleteExperience()"
+    >
+      | <span style="color: #ff0000;">Delete Experience</span></a
+    >
+
+    <h3 style="margin-top: 3rem;">Attachments</h3>
+    <hr />
+    <div class="form-row">
+      <div class="input-group mb-3 col-md-4 mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3">LinkedIn</span>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="exampleFormControlInput1">Date of Birth</label>
-                <input name="dob" type="date" class="form-control" id="exampleFormControlInput1">
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label for="exampleFormControlInput1">Contact</label>
-                <input name="contact" type="number" class="form-control" id="exampleFormControlInput1">
-            </div>
+        <input
+          name="linkedin"
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+        />
+      </div>
+      <div class="input-group mb-3 col-md-4 mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3">GitHub</span>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="exampleFormControlInput1">Gender</label>
-                <select name="gender" class="custom-select" id="validationDefault04">
-                    <option selected disabled value="">Choose...</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Prefer Not To Say</option>
-                </select>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label for="exampleFormControlInput1">Category</label>
-                <select name="category" class="custom-select" id="validationDefault04">
-                    <option selected disabled value="">Choose...</option>
-                    <option>SC</option>
-                    <option>ST</option>
-                    <option>OBC</option>
-                    <option>General</option>
-                    <option>Other</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">PWD</label>
-            <select name="pwd" class="custom-select" id="validationDefault04">
-                <option selected disabled value="">Choose...</option>
-                <option>Yes</option>
-                <option>No</option>
-            </select>
-        </div>
+        <input
+          name="github"
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+        />
+      </div>
+      <div class="form-group col-md-4 mb-3">
+        <input
+          name="fileName"
+          type="text"
+          class="custom-file-input"
+          id="customFile"
+        />
+        <label class="custom-file-label" for="customFile"
+          >Resume - Choose file</label
+        >
+      </div>
+    </div>
 
-
-        <h3 style="margin-top: 3rem">Address</h3>
-        <hr>
-        <label for="exampleFormControlInput1">Permanent Address</label>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Address Line 1</label>
-            <input name="address[0][addressLine1]" type="text" class="form-control" id="exampleFormControlInput1">
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Address Line 2</label>
-            <input name="address[0][addressLine2]" type="text" class="form-control" id="exampleFormControlInput1">
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">City</label>
-                <input name="address[0][city]" type="text" class="form-control" id="exampleFormControlInput1">
-            </div>
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">State</label>
-                <input name="address[0][state]" type="text" class="form-control" id="exampleFormControlInput1">
-            </div>
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">Country</label>
-                <input name="address[0][country]" type="text" class="form-control" id="exampleFormControlInput1">
-            </div>
-        </div>
-
-        <input class="conditional_form_part_activator_address" type="checkbox"> Current Address same as Permanent Address
-
-        <div class="conditional_form_part_address">
-            <br>
-            <label for="exampleFormControlInput1">Current Address</label>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Address Line 1</label>
-                <input name="address[1][addressLine1]" type="text" class="form-control" id="exampleFormControlInput1">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Address Line 2</label>
-                <input name="address[1][addressLine2]" type="text" class="form-control" id="exampleFormControlInput1">
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-4 mb-3">
-                    <label for="exampleFormControlInput1">City</label>
-                    <input name="address[1][city]" type="text" class="form-control" id="exampleFormControlInput1">
-                </div>
-                <div class="form-group col-md-4 mb-3">
-                    <label for="exampleFormControlInput1">State</label>
-                    <input name="address[1][state]" type="text" class="form-control" id="exampleFormControlInput1">
-                </div>
-                <div class="form-group col-md-4 mb-3">
-                    <label for="exampleFormControlInput1">Country</label>
-                    <input name="address[1][country]" type="text" class="form-control" id="exampleFormControlInput1">
-                </div>
-            </div>
-        </div>
-
-        <div id="parentDivEducation">
-            <div id="duplicaterEducation">
-                <h3 style="margin-top: 3rem">Education 1</h3>
-                <hr>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Institue Name</label>
-                    <input name="education[][institute]" type="text" class="form-control" id="exampleFormControlInput1">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Degree</label>
-                    <input name="education[][degree]" type="text" class="form-control" id="exampleFormControlInput1">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">Start Date</label>
-                        <input name="education[][startDate]" type="date" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">End Date</label>
-                        <input name="education[][endDate]" type="date" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">CGPA</label>
-                    <input name="education[][cgpa]" type="number" class="form-control" id="exampleFormControlInput1">
-                </div>
-            </div>
-        </div>
-
-        <a href="#container" id="addEducation" onclick="duplicateDivEducation()">Add Education</a>
-        <a style="visibility: hidden" href="#container" id="deleteEducation" onclick="deleteEducation()"> | <span style="color:#FF0000;">Delete Education</span></a>
-
-
-        <div id="parentDivExperience">
-            <div id="duplicaterExperience">
-                <h3 style="margin-top: 3rem">Experience 1</h3>
-                <hr>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Company/Organization Name</label>
-                    <input name="experience[][organization]" type="text" class="form-control" id="exampleFormControlInput1">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">Experience Title</label>
-                        <input name="experience[][experienceTitle]" type="text" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">Employment Type</label>
-                        <select name="experience[][employmentType]" class="custom-select" id="validationDefault04">
-                            <option selected disabled value="">Choose...</option>
-                            <option>Full-Time</option>
-                            <option>Part-Time</option>
-                            <option>Self-Employed</option>
-                            <option>Freelance</option>
-                            <option>Contract</option>
-                            <option>Internship</option>
-                            <option>Apprenticeship</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">Start Date</label>
-                        <input name="experience[][startDate]" type="date" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">End Date</label>
-                        <input name="experience[][endDate]" type="date" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <a href="#container" id="addExperience" onclick="duplicateDivExperience()">Add Experience</a>
-        <a style="visibility: hidden" href="#container" id="deleteExperience" onclick="deleteExperience()"> | <span style="color:#FF0000;">Delete Experience</span></a>
-
-
-        <h3 style="margin-top: 3rem">Attachments</h3>
-        <hr>
-        <div class="form-row">
-            <div class="input-group mb-3 col-md-4 mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">LinkedIn</span>
-                </div>
-                <input name="linkedin" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-            </div>
-            <div class="input-group mb-3 col-md-4 mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">GitHub</span>
-                </div>
-                <input name="github" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-            </div>
-            <div class="form-group col-md-4 mb-3">
-                <input name="fileName" type="text" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Resume - Choose file</label>
-            </div>
-        </div>
-
-
-        <div style="height: 10rem " class="mybutton">
-            <button id="submitButton" name="submitProfile" class="btn btn-primary" type="submit" class="btn btn-primary mybutton">Submit</button>
-        </div>
-
-    </form>
+    <div style="height: 10rem;" class="mybutton">
+      <button
+        id="submitButton"
+        name="submitProfile"
+        class="btn btn-primary"
+        type="submit"
+        class="btn btn-primary mybutton"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
 </div>
 
 <script src="/js/add-student-profile.js"></script>

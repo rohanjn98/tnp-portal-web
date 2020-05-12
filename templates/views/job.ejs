@@ -1,7 +1,7 @@
 <%- include('partials/header-add-job'); -%>
 
-<div class="container bg-light ">
-  <h1 style="margin-top: 3rem">Job Details</h1>
+<div class="container bg-light">
+  <h1 style="margin-top: 3rem;">Job Details</h1>
   <p>Company Name: <%= job.companyName %></p>
   <p>Comapny Sector: <%= job.companySector %></p>
   <p>Profile: <%= job.profile %></p>
@@ -11,6 +11,12 @@
   <h6>Branches: <%= job.eligibility.branch %></h6>
   <h6>CGPA: <%= job.eligibility.cgpa %></h6>
   <p>Job Description: <%=job.jobDescription%></p>
+  <p>Just for checking whether we are able to access student or not:</p>
+  <p><%=student.cgpa%></p>
+  <p>flag</p>
+  <a class="btn btn-primary btn-sm" href="/jobpost/myjob" role="button"
+    >Apply for this job</a
+  >
 </div>
 
 <%- include('partials/footer'); -%>
