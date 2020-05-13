@@ -7,7 +7,7 @@ A Web App for Training and Placement (TnP) Department of a college.
 5. Whenever the TnP department adds a post or date of exam is confirmed, a notification to the interested students will be sent via SMS/email along with company name and the deadline to apply (notification will be sent to the only Branch and CG filtered students). 
 6. Similar notifications will be sent once the student applies for a particular post and any updates regarding that post are made by the TnP department.
 
-## Important
+## Important Instructions
 Before cloning this repository, make sure to do the following:
 
 1. Make a new directory
