@@ -4,8 +4,8 @@
   "description": "A website for the Training and Placement Cell of VNIT",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js"
+    "start": "node src/app.js",
+    "server": "nodemon src/app.js"
   },
   "author": "Rohan Bhagwatkar",
   "license": "ISC",
