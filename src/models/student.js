@@ -43,7 +43,7 @@ const AddressSchema = new mongoose.Schema({
     addressLine2: {
         title: "Address Line 2",
         type: String,
-        
+
     },
     city: {
         title: "City",
@@ -158,7 +158,7 @@ const StudentSchema = new mongoose.Schema({
     salt: String,
     role:{
         type: Number,
-        default: 0
+        default: 1
         // 0 if Regular User, 1 if Admin
         },
     postSaved: {
@@ -219,7 +219,7 @@ const StudentSchema = new mongoose.Schema({
         title: "Resume",
         type: Buffer
     },
-    
+
 },
 {timestamps: true}
 );

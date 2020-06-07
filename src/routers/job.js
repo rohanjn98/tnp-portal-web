@@ -18,11 +18,11 @@ router.param("JobId",getJobById);
 
 router.get('/home', ensureAuthenticated, showHomePage);
 
-router.get("/jobpost", ensureAuthenticated, showCreateJobPage);
+router.get("/home/jobpost", ensureAuthenticated, showCreateJobPage);
 
 router.post("/jobpost", ensureAuthenticated, createJob);
 
-router.get("/jobpost/:JobId", showJobPage); 
+router.get("/jobpost/:JobId", showJobPage);
 
 router.put("/jobpost/:JobId", ensureAuthenticated, updateJob);
 

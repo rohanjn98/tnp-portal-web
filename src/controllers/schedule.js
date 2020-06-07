@@ -18,41 +18,41 @@ exports.createSchedule = (req, res) => {
 }
 
 exports.getAllSchedules = (req, res) => {
-   Schedule.find().sort({ date: 1 }).exec(async function findAndGet(err, schedules){
-    if (err) {
-      return res.status(400).json({
-        error: "NO categories found"
-      });
-    }else{
-      try{
-        
-        var jobposts = await getJobs(schedules);
-        //console.log("First try: "+jobposts.length);
-        var today = schedules.filter((a)=>{
-          return a.date.getDate() == new Date().getDate() &&  a.date.getMonth() == new Date().getMonth() && a.date.getFullYear() == new Date().getFullYear();
-        });
-
-        var yesterday = schedules.filter((a)=>{
-          return a.date.getDate() == new Date().getDate()-1 &&  a.date.getMonth() == new Date().getMonth() && a.date.getFullYear() == new Date().getFullYear();
-        });
-
-        var upcoming = schedules.filter((a)=>{
-          return a.date > new Date();
-        });
-        res.render('view-applications', {
-          today: today,
-          yesterday: yesterday,
-          upcoming: upcoming,
-          jobs: jobposts
-        });
-        
-      }catch(e){
-        console.log(e);
-      }
+  Schedule.find().sort({ date: 1 }).exec(async function findAndGet(err, schedules){
+  if (err) {
+    return res.status(400).json({
+      error: "NO categories found"
+    });
+  }else{
+    try{
       
+      var jobposts = await getJobs(schedules);
+      //console.log("First try: "+jobposts.length);
+      var today = schedules.filter((a)=>{
+        return a.date.getDate() == new Date().getDate() &&  a.date.getMonth() == new Date().getMonth() && a.date.getFullYear() == new Date().getFullYear();
+      });
+
+      var yesterday = schedules.filter((a)=>{
+        return a.date.getDate() == new Date().getDate()-1 &&  a.date.getMonth() == new Date().getMonth() && a.date.getFullYear() == new Date().getFullYear();
+      });
+
+      var upcoming = schedules.filter((a)=>{
+        return a.date > new Date();
+      });
+      res.render('view-applications', {
+        today: today,
+        yesterday: yesterday,
+        upcoming: upcoming,
+        jobs: jobposts
+      });
+      
+    }catch(e){
+      console.log(e);
     }
-    //res.render();
     
+  }
+  //res.render();
+  
     
   });
 };
