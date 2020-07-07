@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { bool } = require('sharp');
 
 //Create a schema
 
@@ -138,6 +139,7 @@ const StudentSchema = new mongoose.Schema({
         title: "Department",
         type: String,
         trim: false,
+        default: "ECE",
     },
     year: {
         title: "year",
@@ -148,19 +150,26 @@ const StudentSchema = new mongoose.Schema({
         title: "CGPA",
         type: Number,
         required: false,
+        //! to be removed
+        default: 9
 
     },
-    password:{
+    hasBacklog: {
+        title: "hasBacklog",
+        type: Boolean,
+        default: false
+    },
+    password: {
         type: String,
         required: true
         //trim: true,
     },
     salt: String,
-    role:{
+    role: {
         type: Number,
         default: 1
         // 0 if Regular User, 1 if Admin
-        },
+    },
     postSaved: {
         title: "Post Applied",
         type: Array,
@@ -221,7 +230,7 @@ const StudentSchema = new mongoose.Schema({
     },
 
 },
-{timestamps: true}
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('Student', StudentSchema);

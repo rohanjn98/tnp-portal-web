@@ -1,13 +1,14 @@
 const express = require('express');
 const upload = require('../../config/avatar')
 const { ensureAuthenticated } = require("../controllers/auth");
-const { 
+const {
     getStudentById,
     showProfilePage,
-    showAllStudentsPage, 
-    updateProfile, 
-    deleteStudent, 
-    showUpdateProfilePage, 
+    showAllStudentsPage,
+    updateProfile,
+    updatedProfile,
+    deleteStudent,
+    showUpdateProfilePage,
     createAvatar,
     deleteAvatar,
     showAvatar
@@ -18,9 +19,9 @@ router.param("StudentId", getStudentById);
 
 router.get("/students", ensureAuthenticated, showAllStudentsPage);
 
-router.get("/student", ensureAuthenticated, showUpdateProfilePage);
-
-router.post("/student", ensureAuthenticated, updateProfile);
+router.get("/student/profile/makechanges", ensureAuthenticated, showUpdateProfilePage);
+router.put("/student", ensureAuthenticated, updateProfile);
+router.get("/student", ensureAuthenticated, updatedProfile);
 
 router.get("/student/profile", ensureAuthenticated, showProfilePage);
 
