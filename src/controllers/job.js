@@ -148,3 +148,45 @@ exports.applyJob = async (req, res) => {
         job: req.jobpost
     })
 }
+
+exports.filterJobs = async (req, res) => {
+    //const jobs = await Jobpost.find({})
+
+    var fltrName = req.body.fltrname;
+    var fltrProfile = req.body.fltrProfile;
+    var fltrCTC = req.body.fltrCTC;
+    var fltrDream = req.body.fltrDream;
+
+    if (fltrName != '' && fltrProfile != "" && fltrCTC != "") {
+        var fltrParameter = {
+            $and: [{ 'companyName': fltrName }, { 'profile': fltrProfile }, { 'ctc': fltrCTC }]
+        }
+    }
+    else if (fltrName != '' && fltrProfile == "" && fltrCTC != "") {
+        var fltrParameter = {
+            $and: [{ 'companyName': fltrName }, { 'ctc': fltrCTC }]
+        }
+    }
+    else if (fltrName == '' && fltrProfile != "" && fltrCTC != "") {
+        var fltrParameter = {
+            $and: [{ 'profile': fltrProfile }, { 'ctc': fltrCTC }]
+        }
+    }
+    else if (fltrName == '' && fltrProfile == "" && fltrCTC != "") {
+        var fltrParameter = { 'ctc': fltrCTC }
+    }
+    else {
+        var fltrParameter = {}
+    }
+
+    console.log(fltrParameter)
+    const jobs = await Jobpost.find(fltrParameter);
+    console.log(jobs);
+    if (jobs.length === 0) {
+        res.send('<h1>No such companies found!</h1>');
+    } else {
+        res.render('home', {
+            jobs
+        });
+    }
+}

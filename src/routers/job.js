@@ -10,6 +10,7 @@ const {
   deleteJob,
   showCreateJobPage,
   applyJob,
+  filterJobs,
 } = require('../controllers/job');
 const { getStudentById } = require('../controllers/student')
 
@@ -33,6 +34,9 @@ router.delete("/jobpost/:JobId", ensureAuthenticated, deleteJob);
 
 // Apply Job Routes
 router.get("/applyjob/:JobId/", ensureAuthenticated, applyJob)
+
+// Filter Job Route
+router.post("/searchfilter/", ensureAuthenticated, filterJobs)
 
 router.post("/action", function (req, res) {
   let str = req.body.buttonAction;
