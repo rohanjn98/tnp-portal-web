@@ -15,15 +15,8 @@ exports.showHomePage = async (req, res) => {
     // Method1: Currently implemented using fuzzy Search
     // Method2: Efficient method is using text indexes -> https://docs.mongodb.com/manual/core/index-text/
     // Method3: Complete implementation on front-end using 'onkeyup'
-    // console.log(req.params.page)
     const page = parseInt(req.params.page)
     const pagination = 3
-    // try {
-    //     const paginatedResults = await Jobpost.paginate({}, { page: page, limit: pagination })
-    //     console.log(paginatedResults);
-    // } catch (error) {
-    //     res.status(500).send()
-    // }
 
     if (req.query.search) {
         const regex = new RegExp(escapeRegex(req.query.search), 'gi') //g -> global match, i -> ignore case
@@ -64,8 +57,6 @@ exports.showHomePage = async (req, res) => {
         }
     }
 }
-
-
 
 exports.showCreateJobPage = (req, res) => {
     if (req.user.role === 1) {
