@@ -1,0 +1,88 @@
+<%- include('partials/header'); -%>
+<div class="album py-5 bg-light m-1">
+    <div class="container">
+        <!-- Jumbotron-->
+        <div class="jumbotron">
+            <h1 class="display-4">
+                Hello, <%= Student.firstName %> <%= Student.lastName %>
+            </h1>
+            <p class="lead">
+                Welcome to your profile.
+            </p>
+            <hr class="my-1" />
+            <p>
+                If you have to make any changes in your profile, click here.
+            </p>
+            <a class="btn btn-primary btn-sm" href="/student/profile/makechanges" role="button">Make changes</a>
+        </div>
+        <!-- Jumbotron over -->
+        <!-- Media Object  -->
+        <div class="media">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png"
+                class="mr-3" width="50px" height="auto" alt="Your DP here (Media Object)" />
+            <div class="media-body">
+                <h5 class="mt-0">Your Details</h5>
+                <!-- Flush List -->
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>First Name:</strong> <%= Student.firstName %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Middle Name: </strong><%= Student.middleName %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Last Name: </strong><%= Student.lastName %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>id No.: </strong><%= Student.idNo %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Enrollment No.: </strong><%= Student.enrollment %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Email id.:</strong> <%= Student.email %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Department:</strong> <%=Student.department %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>year:</strong> <%=Student.year %>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>cgpa: </strong><%=Student.cgpa%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>contact:</strong> <%=Student.contact%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>DOB:</strong> <%=Student.dob%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Gender:</strong> <%=Student.gender%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Category: </strong><%=Student.category%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Addresses: </strong><%=Student.addresses%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Experience: </strong><%=Student.experience%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>PWD: </strong><%=Student.pwd%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Your Resume: </strong><%=Student.resume%>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Your GIT Repo: </strong><%=Student.github%>
+                    </li>
+                </ul>
+                <!-- List over -->
+            </div>
+        </div>
+        <!-- Media Object done  -->
+    </div>
+</div>
+<%- include('partials/footer'); -%>

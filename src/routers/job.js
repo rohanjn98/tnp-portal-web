@@ -8,13 +8,17 @@ const {
   showHomePage,
   updateJob,
   deleteJob,
-  showCreateJobPage
+  showCreateJobPage,
+  applyJob,
+  filterJobs,
 } = require('../controllers/job');
+const { getStudentById } = require('../controllers/student')
 
 const { ensureAuthenticated } = require('../controllers/auth');
 const Job = require('../models/job')
 
-router.param("JobId",getJobById);
+router.param("JobId", getJobById);
+router.param("StudentId", getStudentById);
 
 router.get('/home/:page', ensureAuthenticated, showHomePage);
 
@@ -28,15 +32,22 @@ router.put("/jobpost/:JobId", ensureAuthenticated, updateJob);
 
 router.delete("/jobpost/:JobId", ensureAuthenticated, deleteJob);
 
-router.post("/action", function(req, res) {
+// Apply Job Routes
+router.get("/applyjob/:JobId/", ensureAuthenticated, applyJob)
+
+// Filter Job Route
+router.post("/searchfilter/", ensureAuthenticated, filterJobs)
+
+router.post("/action", function (req, res) {
   let str = req.body.buttonAction;
   let action = str.substring(0, 4);
   let jobID = str.substring(4);
   if (action === "view") {
     res.redirect("/jobpost/" + jobID);
   }
-  if (action === "aply") {
+  else if (action === "aply") {
     // ONE CLICK APPLY ROUTE
+    res.redirect("/applyjob/" + jobID);
   }
 });
 
