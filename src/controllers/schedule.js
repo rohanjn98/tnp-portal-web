@@ -25,7 +25,7 @@ exports.getAllSchedules = (req, res) => {
     });
   }else{
     try{
-      
+
       var jobposts = await getJobs(schedules);
       //console.log("First try: "+jobposts.length);
       var today = schedules.filter((a)=>{
@@ -45,30 +45,30 @@ exports.getAllSchedules = (req, res) => {
         upcoming: upcoming,
         jobs: jobposts
       });
-      
+
     }catch(e){
       console.log(e);
     }
-    
+
   }
   //res.render();
-  
-    
+
+
   });
 };
 
 async function getJobs(schedules){
-  
+
   var jobposts;
-  
+
   try{
     jobposts =  await Jobpost.find();
     return jobposts;
   }catch(e){
     console.log(e);
   }
-  
- return; 
+
+ return;
 }
 
 
@@ -83,5 +83,3 @@ exports.getScheduleByJobId = (req, res) => {
 
   })
 };
-
-

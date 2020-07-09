@@ -10,21 +10,71 @@ exports.getJobById = async (req, res, next, id) => {
     }
 }
 
+// exports.showHomePage = async (req, res) => {
+//     // Method1: Currently implemented using fuzzy Search
+//     // Method2: Efficient method is using text indexes -> https://docs.mongodb.com/manual/core/index-text/
+//     // Method3: Complete implementation on front-end using 'onkeyup'
+//     if (req.query.search) {
+//         const regex = new RegExp(escapeRegex(req.query.search), 'gi') //g -> global match, i -> ignore case
+//         try {
+//             const jobs = await Jobpost.find({
+//                 'companyName': regex
+//             })
+//             if (jobs.length === 0) {
+//                 res.send('<h1>No such companies found!</h1>');
+//             } else {
+//                 res.render('home', {
+//                     jobs
+//                 });
+//             }
+//         } catch (error) {
+//             res.status(500).send()
+//         }
+//     } else {
+//         try {
+//             const jobs = await Jobpost.find({})
+//             if (jobs.length === 0) {
+//                 res.send('<h1>No jobs eh, mate!</h1>');
+//             } else {
+//                 res.render('home', {
+//                     jobs
+//                 });
+//             }
+//         } catch (error) {
+//             res.status(500).send()
+//         }
+//     }
+// }
+
 exports.showHomePage = async (req, res) => {
     // Method1: Currently implemented using fuzzy Search
     // Method2: Efficient method is using text indexes -> https://docs.mongodb.com/manual/core/index-text/
     // Method3: Complete implementation on front-end using 'onkeyup'
+    // console.log(req.params.page)
+    const page = parseInt(req.params.page)
+    const pagination = 3
+    // try {
+    //     const paginatedResults = await Jobpost.paginate({}, { page: page, limit: pagination })
+    //     console.log(paginatedResults);
+    // } catch (error) {
+    //     res.status(500).send()
+    // }
+
     if (req.query.search) {
         const regex = new RegExp(escapeRegex(req.query.search), 'gi') //g -> global match, i -> ignore case
         try {
-            const jobs = await Jobpost.find({
+            const jobs = await Jobpost.paginate({
                 'companyName': regex
-            })
-            if (jobs.length === 0) {
-                res.send('<h1>No such companies found!</h1>');
+            }, { page: page, limit: pagination })
+            if (paginatedResults.docs.length === 0) {
+                res.send('<h1>No jobs eh, mate!</h1>');
             } else {
-                res.render('home', {
-                    jobs
+                res.render('home',{
+                  total:paginatedResults.total,
+                  limit:paginatedResults.limit,
+                  page:paginatedResults.page,
+                  pages:paginatedResults.pages,
+                  jobs:paginatedResults.docs
                 });
             }
         } catch (error) {
@@ -32,12 +82,16 @@ exports.showHomePage = async (req, res) => {
         }
     } else {
         try {
-            const jobs = await Jobpost.find({})
-            if (jobs.length === 0) {
+            const paginatedResults = await Jobpost.paginate({}, { page: page, limit: pagination })
+            if (paginatedResults.docs.length === 0) {
                 res.send('<h1>No jobs eh, mate!</h1>');
             } else {
-                res.render('home', {
-                    jobs
+                res.render('home',{
+                  total:paginatedResults.total,
+                  limit:paginatedResults.limit,
+                  page:paginatedResults.page,
+                  pages:paginatedResults.pages,
+                  jobs:paginatedResults.docs
                 });
             }
         } catch (error) {
@@ -45,6 +99,8 @@ exports.showHomePage = async (req, res) => {
         }
     }
 }
+
+
 
 exports.showCreateJobPage = (req, res) => {
     if (req.user.role === 1) {
@@ -59,7 +115,7 @@ exports.createJob = async (req, res) => {
         const job = new Jobpost(req.body);
         try {
             await job.save()
-            res.redirect('/home')
+            res.redirect('/home/1')
         } catch (error) {
             res.status(500).send()
         }
@@ -81,7 +137,7 @@ exports.updateJob = async (req, res) => {
         job.ctc = req.body.ctc;
         try {
             await job.save()
-            res.redirect('/home')
+            res.redirect('/home/1')
         } catch (error) {
             res.status(500).send()
         }
@@ -95,7 +151,7 @@ exports.deleteJob = async (req, res) => {
         const job = req.jobpost;
         try {
             await job.remove()
-            res.redirect('/home')
+            res.redirect('/home/1')
         } catch (error) {
             res.status(500).send()
         }

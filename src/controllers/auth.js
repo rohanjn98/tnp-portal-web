@@ -25,7 +25,7 @@ exports.signup = (req, res) => {
                 req.flash(
                   'success_msg',
                   'You are now registered and can log in'
-                );          
+                );
           const id = student._id;
           res.redirect('/login');
         })
@@ -36,10 +36,10 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res, next) => {
   if (req.isAuthenticated()) {
-    res.redirect('/home')
+    res.redirect('/home/1')
   } else {
     passport.authenticate('local', {
-      successRedirect: '/home',
+      successRedirect: '/home/1',
       failureRedirect: '/login',
       failureFlash: true
     })(req, res, next);
@@ -54,15 +54,15 @@ exports.signout = (req, res) => {
 
 exports.showLoginPage = (req, res) => {
   if (req.user) {
-    res.redirect('/home')
+    res.redirect('/home/1')
   } else {
-    res.render("login")  
+    res.render("login")
   }
 }
 
 exports.showSignupPage = (req, res) => {
   if (req.user) {
-    res.redirect('/home')
+    res.redirect('/home/1')
   } else {
     res.render("signup")
   }

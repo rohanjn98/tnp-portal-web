@@ -18,11 +18,11 @@
                                 <p>Profile: <%= job.profile %></p>
                                 <p>CTC: <%= job.ctc %> LPA</p>
                                 <% if (job.eligibility != null) { %>
-                                    <p>CGPA Required: <%= job.eligibility.cgpa %></p>
-                                    <p> Eligible branches:  <%=job.eligibility.branch %></p>
-                                    <%} else { %>
-                                    <p></p>
-                                    <% } %>
+                                <p>CGPA Required: <%= job.eligibility.cgpa %></p>
+                                <p> Eligible branches: <%=job.eligibility.branch %></p>
+                                <%} else { %>
+                                <p></p>
+                                <% } %>
                             </div>
                             <!-- <p name="jobDescription" class="card-text">
                                 <%=job.jobDescription.substring(0, 50) + " ..."%>
@@ -40,7 +40,31 @@
                 </div>
             </div>
             <%});%>
-
+        </div>
+        <div style="margin:auto;">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="/home/1/">First</a>
+                </li>
+                <li class="page-item">
+                    <%if(page!=1){var a=parseInt(page)-1;%>
+                        <a class="page-link" href="/home/<%=a%>">Previous</a>
+                    <%}%>
+                </li>
+                <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                <% if (pages != page) { %>
+                    <% if ((pages-1) != page) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="/home/<%=page+1%>">Next</a>
+                        </li>
+                    <%}%>
+                    <li class="page-item">
+                        <a class="page-link" href="/home/<%=pages%>">Last</a>
+                    </li>
+                <%}%>
+            </ul>
         </div>
     </div>
 </div>

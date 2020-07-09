@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+var mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 
 //Create a Elgibility Schema
@@ -71,7 +72,7 @@ const jobsSchema = Schema({
 
 
     profile: {
-        title: "Job Profile",       //IT Services, Analytics, 
+        title: "Job Profile",       //IT Services, Analytics,
         type: String,
         trim: true,
     },
@@ -96,13 +97,13 @@ const jobsSchema = Schema({
     },
 
     ctc: {                      //package can be used instead for generalization
-        title: "CTC",              
+        title: "CTC",
         type: String,           // To give more flexibility for eg. if ctc is not decided simply TBD can be written.
         required: false,
     },
 
-    eligibility: {                       
-        title: "Elgibility",            
+    eligibility: {
+        title: "Elgibility",
         type: ElgibilitySchema,         //To obtain nested JSON object to get more clarity(instead of branch and ctc as seperate entity in JobPostSchema itself).
     },
 
@@ -121,6 +122,8 @@ const jobsSchema = Schema({
         default: Date.now,
     },
 });
+
+jobsSchema.plugin(mongoosePaginate);
 
 //Collection
 const Job = mongoose.model("Jobpost", jobsSchema);

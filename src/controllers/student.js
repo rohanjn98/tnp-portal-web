@@ -26,7 +26,7 @@ exports.showAllStudentsPage = async (req,res) => {
 }
 
 exports.showUpdateProfilePage = (req, res) => {
-  res.render('add-profile', { 
+  res.render('add-profile', {
     Student: req.user
   });
 }
@@ -79,7 +79,7 @@ exports.deleteStudent = async (req, res) => {
     const student = req.profile;
     try {
       await student.remove()
-      res.redirect('/home')
+      res.redirect('/home/1')
     } catch (error) {
       res.status(500).send()
     }

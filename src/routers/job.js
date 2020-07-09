@@ -16,9 +16,9 @@ const Job = require('../models/job')
 
 router.param("JobId",getJobById);
 
-router.get('/home', ensureAuthenticated, showHomePage);
+router.get('/home/:page', ensureAuthenticated, showHomePage);
 
-router.get("/home/jobpost", ensureAuthenticated, showCreateJobPage);
+router.get("/home/:page/jobpost", ensureAuthenticated, showCreateJobPage);
 
 router.post("/jobpost", ensureAuthenticated, createJob);
 
