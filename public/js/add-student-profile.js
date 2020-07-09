@@ -40,45 +40,58 @@ function deleteEducation() {
 
 function duplicateDivExperience() {
     i++;
-    var cloneExperience = originalDivExperience.cloneNode(true); // "deep" clone
-    cloneExperience.children[0].innerHTML = "Experience " + i;
-    cloneExperience.children[2].children[1].setAttribute("name", "experience[" + i + "][organization]");
-    cloneExperience.children[2].children[1].setAttribute("placeholder", "");
-    cloneExperience.children[3].children[0].children[1].setAttribute("name", "experience[" + i + "][experienceTitle]");
-    cloneExperience.children[3].children[0].children[1].setAttribute("placeholder", "");
+    var newHtml;
+    var element = parentDivExperience;
 
-    cloneExperience.children[3].children[1].children[1].setAttribute("name", "experience[" + i + "][employmentType]");
-    cloneExperience.children[3].children[1].children[1].setAttribute("placeholder", "");
+    var htmlString = '<div><h3 style="margin-top: 3rem;">Experience %nameExperience%</h3><hr /><div class="form-group"><label for="exampleFormControlInput1">Company/Organization Name</label><input name="experience[%nameOrganization%]" type="text" class="form-control"id="exampleFormControlInput1" /></div><div class="form-row"><div class="form-group col-md-6 mb-3"><label for="exampleFormControlInput1">Experience Title</label><input name="experience[%nameTitle%]" type="text" class="form-control" id="exampleFormControlInput1" /></div><div class="form-group col-md-6 mb-3"><label for="exampleFormControlInput1">Employment Type</label><select name="experience[%nameEmploymentType%]" class="custom-select" id="validationDefault04"><option selected disabled value="">Choose...</option><option>Full-Time</option><option>Part-Time</option><option>Self-Employed</option><option>Freelance</option><option>Contract</option><option>Internship</option><option>Apprenticeship</option></select></div></div><div class="form-row"><div class="form-group col-md-6 mb-3"><label for="exampleFormControlInput1">Start Date</label><input name="experience[%nameStartDate%]" type="date" class="form-control" id="exampleFormControlInput1" /></div><div class="form-group col-md-6 mb-3"><label for="exampleFormControlInput1">End Date</label><input name="experience[%nameEndDate%]" type="date" class="form-control" id="exampleFormControlInput1" /></div></div></div>';
 
-    cloneExperience.children[4].children[0].children[1].setAttribute("name", "experience[" + i + "][startDate]");
-    cloneExperience.children[4].children[0].children[1].setAttribute("placeholder", "");
+    newHtml = htmlString.replace('%nameExperience%', i);
+    newHtml = newHtml.replace('%nameOrganization%', i-1);
+    newHtml = newHtml.replace('%nameTitle%', i-1);
+    newHtml = newHtml.replace('%nameEmploymentType%', i-1);
+    newHtml = newHtml.replace('%nameStartDate%', i-1);
+    newHtml = newHtml.replace('%nameEndDate%', i-1);
 
-    cloneExperience.children[4].children[1].children[1].setAttribute("name", "experience[" + i + "][endDate]");
-    cloneExperience.children[4].children[1].children[1].setAttribute("placeholder", "");
-
-    originalDivExperience.parentNode.appendChild(cloneExperience);
+    element.insertAdjacentHTML('beforeend', newHtml);
     checkVisibility("Experience")
 }
 
 function duplicateDivEducation() {
+    var newHtml;
     j++;
-    var cloneEducation = originalDivEducation.cloneNode(true); // "deep" clone
-    cloneEducation.children[0].innerHTML = "Education " + j;
-    cloneEducation.children[2].children[1].setAttribute("name", "education[" + j + "][institute]");
-    cloneEducation.children[2].children[1].setAttribute("placeholder", "");
+    var element = parentDivEducation;
 
-    cloneEducation.children[3].children[1].setAttribute("name", "education[" + j + "][degree]");
-    cloneEducation.children[3].children[1].setAttribute("placeholder", "");
+    var htmlString = '<div><h3 style="margin-top: 3rem;">Education %nameEducation%</h3><hr /><div class="form-group"><label for="exampleFormControlInput1">Institue Name</label><input name="education[%nameInstitute%]" type="text" class="form-control" id="exampleFormControlInput1" /></div><div class="form-group"><label for="exampleFormControlInput1">Degree</label><input name="education[%nameDegree%]" type="text" class="form-control" id="exampleFormControlInput1" /></div><div class="form-row"><div class="form-group col-md-6 mb-3"><label for="exampleFormControlInput1">Start Date</label><input name="education[%nameStartDate%]" type="date" class="form-control" id="exampleFormControlInput1" /></div><div class="form-group col-md-6 mb-3"><label for="exampleFormControlInput1">End Date</label><input name="education[%nameEndDate%]" type="date" class="form-control" id="exampleFormControlInput1" /></div></div><div class="form-group"><label for="exampleFormControlInput1">CGPA</label><input name="education[%nameCgpa%]" type="number" class="form-control" id="exampleFormControlInput1" /></div></div>';
 
-    cloneEducation.children[4].children[0].children[1].setAttribute("name", "education[" + j + "][startDate]");
-    cloneEducation.children[4].children[0].children[1].setAttribute("placeholder", "");
+    newHtml = htmlString.replace('%nameEducation%', j);
+    newHtml = newHtml.replace('%nameInstitute%', j-1);
+    newHtml = newHtml.replace('%nameDegree%', j-1);
+    newHtml = newHtml.replace('%nameStartDate%', j-1);
+    newHtml = newHtml.replace('%nameEndDate%', j-1);
+    newHtml = newHtml.replace('%nameCgpa%', j-1);
 
-    cloneEducation.children[4].children[1].children[1].setAttribute("name", "education[" + j + "][endDate]");
-    cloneEducation.children[4].children[1].children[1].setAttribute("placeholder", "");
-
-    cloneEducation.children[5].children[1].setAttribute("name", "education[" + j + "][cgpa]");
-    cloneEducation.children[5].children[1].setAttribute("placeholder", "");
-
-    originalDivEducation.parentNode.appendChild(cloneEducation);
+    element.insertAdjacentHTML('beforeend', newHtml);
     checkVisibility("Education")
 }
+
+var checkbox = document.querySelector("input[name=checkbox]");
+var permanentAddress = document.getElementById('permanentAddress')
+var currentAddress = document.getElementById('currentAddress')
+
+checkbox.addEventListener( 'change', function() {
+    if(this.checked) {
+        // Checkbox is checked..
+        currentAddress.children[1].children[1].setAttribute("value", permanentAddress.children[1].children[1].value);
+        currentAddress.children[2].children[1].setAttribute("value", permanentAddress.children[2].children[1].value);
+        currentAddress.children[3].children[0].children[1].setAttribute("value", permanentAddress.children[3].children[0].children[1].value);
+        currentAddress.children[3].children[1].children[1].setAttribute("value", permanentAddress.children[3].children[1].children[1].value);
+        currentAddress.children[3].children[2].children[1].setAttribute("value", permanentAddress.children[3].children[2].children[1].value);
+    } else {
+        // Checkbox is not checked..
+        currentAddress.children[1].children[1].removeAttribute("value");
+        currentAddress.children[2].children[1].removeAttribute("value");
+        currentAddress.children[3].children[0].children[1].removeAttribute("value");
+        currentAddress.children[3].children[1].children[1].removeAttribute("value");
+        currentAddress.children[3].children[2].children[1].removeAttribute("value");
+    }
+});

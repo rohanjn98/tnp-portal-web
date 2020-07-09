@@ -73,7 +73,6 @@ const ExperienceSchema = new mongoose.Schema({
     employmentType: {
         title: "Type of employment",
         type: String,
-        enum: ["Full-Time", "Part-Time", "Self-Employed", "Freelance", "Contract", "Internship", "Apprenticeship"],
         //required: true
 
     },

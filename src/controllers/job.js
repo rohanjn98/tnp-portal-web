@@ -69,6 +69,7 @@ exports.showCreateJobPage = (req, res) => {
 exports.createJob = async (req, res) => {
     if (req.user.role === 1) {
         const job = new Jobpost(req.body);
+        console.log(job);
         try {
             await job.save()
             res.redirect('/home/1')

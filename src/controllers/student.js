@@ -32,44 +32,78 @@ exports.showUpdateProfilePage = (req, res) => {
 }
 
 exports.updateProfile = async (req, res) => {
-    //console.log(req.body);
+    const _id = req.user._id
     try {
-        //res.render("myProfile", { Student: req.body });
-        Student.findByIdAndUpdate({
-                _id: req.user._id
-            }, {
-                $set: req.user
-            }, {
-                new: true
-            },
-            (err, student) => {
-                if (err) {
-                    return res.status(400).json({
-                        error: "You are not authorized to update this user",
-                    });
-                }
-                res.render("myProfile", {
-                    Student: req.user
-                });
+        // This is done so that mongoose doesn't bypass the middleware. findOneById() bypasses the middleware.
+        const student = await Student.findOne({_id})
+        student.address = []
+        student.experience = []
+        student.education = []
+        if (!student) {
+            res.send('No such student')
+        }
+        const updates = Object.keys(req.body)
+
+        updates.forEach((update) => student[update] = req.body[update])
+
+        for (var i = 0; i < 2; i++) {
+            var addressArray = req.body['address['+i+']']
+            console.log(addressArray);
+            var addressObject = {
+                addressLine1: addressArray[0],
+                addressLine2: addressArray[1],
+                city: addressArray[2],
+                state: addressArray[3],
+                country: addressArray[4]
             }
-        );
-        res.json(req.body);
+            student.address.push(addressObject)
+        }
+
+        var educationCount = 0;
+        var experienceCount = 0;
+        updates.forEach((update) => {
+            if (update.includes('education')) {
+                educationCount++;
+            }
+            if (update.includes('experience')) {
+                experienceCount++;
+            }
+        });
+
+        for (var i = 0; i < educationCount; i++) {
+            var educationArray = req.body['education['+i+']']
+            var startDate = new Date(educationArray[2]);
+            var endDate = new Date(educationArray[3]);
+            var educationObject = {
+                institute: educationArray[0],
+                degree: educationArray[1],
+                startDate: startDate,
+                endDate: endDate,
+                cgpa: parseInt(educationArray[4])
+            }
+            student.education.push(educationObject)
+        }
+
+        for (var i = 0; i < experienceCount; i++) {
+            var experienceArray = req.body['experience['+i+']']
+            var startDate = new Date(experienceArray[3]);
+            var endDate = new Date(experienceArray[4])
+            var experienceObject = {
+                experienceTitle: experienceArray[0],
+                employmentType: experienceArray[1],
+                organization: experienceArray[2],
+                startDate: startDate,
+                endDate: endDate
+            }
+            student.experience.push(experienceObject)
+        }
+
+        await student.save()
+
+        res.send(student)
     } catch (error) {
-        console.log(error);
-        res.status(500).send();
+        res.send(error)
     }
-};
-
-exports.updatedProfile = async (req, res) => {
-    res.render("myProfile", {
-        Student: req.user
-    });
-}
-
-exports.showProfilePage = (req, res) => {
-    res.render("myProfile", {
-        Student: req.user
-    });
 };
 
 exports.createAvatar = (req, res) => {

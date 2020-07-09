@@ -19,11 +19,13 @@ router.param("StudentId", getStudentById);
 
 router.get("/students", ensureAuthenticated, showAllStudentsPage);
 
-router.get("/student/profile/makechanges", ensureAuthenticated, showUpdateProfilePage);
-router.put("/student", ensureAuthenticated, updateProfile);
-router.get("/student", ensureAuthenticated, updatedProfile);
+router.get("/student/profile", ensureAuthenticated, showUpdateProfilePage);
 
-router.get("/student/profile", ensureAuthenticated, showProfilePage);
+router.post("/student", ensureAuthenticated, updateProfile);
+
+// router.get("/student", ensureAuthenticated, updatedProfile);
+
+// router.get("/student/profile", ensureAuthenticated, showProfilePage);
 
 router.post('/student/avatar', ensureAuthenticated, upload.single('avatar'), createAvatar)
 

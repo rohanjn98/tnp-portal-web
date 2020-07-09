@@ -5,7 +5,7 @@
 
     <h3 style="margin-top: 3rem;">Basic Details</h3>
     <hr />
-    <form class="" action="/student" method="PUT">
+    <form class="" action="/student" method="POST">
         <div class="form-row">
             <div class="form-group col-md-4 mb-3">
                 <label for="exampleFormControlInput1">First Name</label>
@@ -14,7 +14,7 @@
             </div>
             <div class="form-group col-md-4 mb-3">
                 <label for="exampleFormControlInput1">Middle Name</label>
-                <input name="middleName" type="text" class="form-control" id="exampleFormControlInput1" />
+                <input name="middleName" type="text" class="form-control" id="exampleFormControlInput1" value="<%= Student.middleName %>"/>
             </div>
             <div class="form-group col-md-4 mb-3">
                 <label for="exampleFormControlInput1">Last Name</label>
@@ -113,88 +113,89 @@
 
         <h3 style="margin-top: 3rem;">Address</h3>
         <hr />
-        <label for="exampleFormControlInput1">Permanent Address</label>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Address Line 1</label>
-            <input name="address[0][addressLine1]" type="text" class="form-control" id="exampleFormControlInput1" />
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Address Line 2</label>
-            <input name="address[0][addressLine2]" type="text" class="form-control" id="exampleFormControlInput1" />
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">City</label>
-                <input name="address[0][city]" type="text" class="form-control" id="exampleFormControlInput1" />
-            </div>
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">State</label>
-                <input name="address[0][state]" type="text" class="form-control" id="exampleFormControlInput1" />
-            </div>
-            <div class="form-group col-md-4 mb-3">
-                <label for="exampleFormControlInput1">Country</label>
-                <input name="address[0][country]" type="text" class="form-control" id="exampleFormControlInput1" />
-            </div>
-        </div>
-
-        <input class="conditional_form_part_activator_address" type="checkbox" />
-        Current Address same as Permanent Address
-
-        <div class="conditional_form_part_address">
-            <br />
-            <label for="exampleFormControlInput1">Current Address</label>
+        <div id="permanentAddress">
+            <label for="exampleFormControlInput1">Permanent Address</label>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Address Line 1</label>
-                <input name="address[1][addressLine1]" type="text" class="form-control" id="exampleFormControlInput1" />
+                <input value="hola am" name="address[0]" type="text" class="form-control" id="permanentAddressLine1" />
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Address Line 2</label>
-                <input name="address[1][addressLine2]" type="text" class="form-control" id="exampleFormControlInput1" />
+                <input name="address[0]" type="text" class="form-control" id="permanentAddressLine2" />
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">City</label>
-                    <input name="address[1][city]" type="text" class="form-control" id="exampleFormControlInput1" />
+                    <input name="address[0]" type="text" class="form-control" id="permanentCity" />
                 </div>
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">State</label>
-                    <input name="address[1][state]" type="text" class="form-control" id="exampleFormControlInput1" />
+                    <input name="address[0]" type="text" class="form-control" id="permanentState" />
                 </div>
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">Country</label>
-                    <input name="address[1][country]" type="text" class="form-control" id="exampleFormControlInput1" />
+                    <input name="address[0]" type="text" class="form-control" id="permanentCountry" />
+                </div>
+            </div>
+        </div>
+
+        <input type="checkbox" name="checkbox"/>
+        Current Address same as Permanent Address
+        <br />
+        <div id="currentAddress">
+            <label for="exampleFormControlInput1">Current Address</label>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Address Line 1</label>
+                <input name="address[1]" type="text" class="form-control" id="currentAddressLine1" />
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Address Line 2</label>
+                <input name="address[1]" type="text" class="form-control" id="currentAddressLine3" />
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-3">
+                    <label for="exampleFormControlInput1">City</label>
+                    <input name="address[1]" type="text" class="form-control" id="currentCity" />
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    <label for="exampleFormControlInput1">State</label>
+                    <input name="address[1]" type="text" class="form-control" id="currentState" />
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    <label for="exampleFormControlInput1">Country</label>
+                    <input name="address[1]" type="text" class="form-control" id="currentCountry" />
                 </div>
             </div>
         </div>
 
         <div id="parentDivEducation">
-            <div id="duplicaterEducation">
+            <div>
                 <h3 style="margin-top: 3rem;">Education 1</h3>
                 <hr />
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Institue Name</label>
-                    <input name="education[][institute]" type="text" class="form-control"
+                    <input name="education[0]" type="text" class="form-control"
                         id="exampleFormControlInput1" />
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Degree</label>
-                    <input name="education[][degree]" type="text" class="form-control" id="exampleFormControlInput1" />
+                    <input name="education[0]" type="text" class="form-control" id="exampleFormControlInput1" />
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6 mb-3">
                         <label for="exampleFormControlInput1">Start Date</label>
-                        <input name="education[][startDate]" type="date" class="form-control"
+                        <input name="education[0]" type="date" class="form-control"
                             id="exampleFormControlInput1" />
                     </div>
                     <div class="form-group col-md-6 mb-3">
                         <label for="exampleFormControlInput1">End Date</label>
-                        <input name="education[][endDate]" type="date" class="form-control"
+                        <input name="education[0]" type="date" class="form-control"
                             id="exampleFormControlInput1" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">CGPA</label>
-                    <input name="education[][cgpa]" type="number" class="form-control" id="exampleFormControlInput1" />
+                    <input name="education[0]" type="number" class="form-control" id="exampleFormControlInput1" />
                 </div>
             </div>
         </div>
@@ -204,23 +205,23 @@
             | <span style="color: #ff0000;">Delete Education</span></a>
 
         <div id="parentDivExperience">
-            <div id="duplicaterExperience">
+            <div>
                 <h3 style="margin-top: 3rem;">Experience 1</h3>
                 <hr />
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Company/Organization Name</label>
-                    <input name="experience[][organization]" type="text" class="form-control"
+                    <input name="experience[0]" type="text" class="form-control"
                         id="exampleFormControlInput1" />
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6 mb-3">
                         <label for="exampleFormControlInput1">Experience Title</label>
-                        <input name="experience[][experienceTitle]" type="text" class="form-control"
+                        <input name="experience[0]" type="text" class="form-control"
                             id="exampleFormControlInput1" />
                     </div>
                     <div class="form-group col-md-6 mb-3">
                         <label for="exampleFormControlInput1">Employment Type</label>
-                        <select name="experience[][employmentType]" class="custom-select" id="validationDefault04">
+                        <select name="experience[0]" class="custom-select" id="validationDefault04">
                             <option selected disabled value="">Choose...</option>
                             <option>Full-Time</option>
                             <option>Part-Time</option>
@@ -235,12 +236,12 @@
                 <div class="form-row">
                     <div class="form-group col-md-6 mb-3">
                         <label for="exampleFormControlInput1">Start Date</label>
-                        <input name="experience[][startDate]" type="date" class="form-control"
+                        <input name="experience[0]" type="date" class="form-control"
                             id="exampleFormControlInput1" />
                     </div>
                     <div class="form-group col-md-6 mb-3">
                         <label for="exampleFormControlInput1">End Date</label>
-                        <input name="experience[][endDate]" type="date" class="form-control"
+                        <input name="experience[0]" type="date" class="form-control"
                             id="exampleFormControlInput1" />
                     </div>
                 </div>
