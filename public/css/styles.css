@@ -18,12 +18,3 @@ footer {
 .mybutton {
     margin-top: 1.5rem;
 }
-
-
-.conditional_form_part_address {
-  display: block;
-}
-
-.conditional_form_part_activator_address:checked + .conditional_form_part_address {
-  display: none;
-}

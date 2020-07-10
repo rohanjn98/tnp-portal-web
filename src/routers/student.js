@@ -1,6 +1,6 @@
 const express = require('express');
-const upload = require('../../config/avatar')
 const { ensureAuthenticated } = require("../controllers/auth");
+const { uploadAvatar, uploadResume } = require('../../config/avatar');
 const {
     getStudentById,
     showProfilePage,
@@ -11,7 +11,10 @@ const {
     showUpdateProfilePage,
     createAvatar,
     deleteAvatar,
-    showAvatar
+    showAvatar,
+    createResume,
+    deleteResume,
+    showResume
 } = require("../controllers/student");
 const router = express.Router();
 
@@ -23,11 +26,9 @@ router.get("/student/profile", ensureAuthenticated, showUpdateProfilePage);
 
 router.post("/student", ensureAuthenticated, updateProfile);
 
-// router.get("/student", ensureAuthenticated, updatedProfile);
+router.post('/student/avatar', ensureAuthenticated, uploadAvatar.single('avatar'), createAvatar)
 
-// router.get("/student/profile", ensureAuthenticated, showProfilePage);
-
-router.post('/student/avatar', ensureAuthenticated, upload.single('avatar'), createAvatar)
+router.post('/student/resume', ensureAuthenticated, uploadResume.single('resume'), createResume)
 
 router.delete('/student/avatar', ensureAuthenticated, deleteAvatar)
 

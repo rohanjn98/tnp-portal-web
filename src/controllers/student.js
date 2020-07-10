@@ -27,7 +27,7 @@ exports.showAllStudentsPage = async (req, res) => {
 
 exports.showUpdateProfilePage = (req, res) => {
     console.log(req.user);
-    res.render('add-profile-develop', {
+    res.render('add-profile', {
         Student: req.user
     });
 }
@@ -36,7 +36,9 @@ exports.updateProfile = async (req, res) => {
     const _id = req.user._id
     try {
         // This is done so that mongoose doesn't bypass the middleware. findOneById() bypasses the middleware.
-        const student = await Student.findOne({_id})
+        const student = await Student.findOne({
+            _id
+        })
         student.address = []
         student.experience = []
         student.education = []
@@ -48,7 +50,7 @@ exports.updateProfile = async (req, res) => {
         updates.forEach((update) => student[update] = req.body[update])
 
         for (var i = 0; i < 2; i++) {
-            var addressArray = req.body['address['+i+']']
+            var addressArray = req.body['address[' + i + ']']
             var addressObject = {
                 addressLine1: addressArray[0],
                 addressLine2: addressArray[1],
@@ -71,7 +73,7 @@ exports.updateProfile = async (req, res) => {
         });
 
         for (var i = 0; i < educationCount; i++) {
-            var educationArray = req.body['education['+i+']']
+            var educationArray = req.body['education[' + i + ']']
             var startDate = new Date(educationArray[2]);
             var endDate = new Date(educationArray[3]);
             var educationObject = {
@@ -85,7 +87,7 @@ exports.updateProfile = async (req, res) => {
         }
 
         for (var i = 0; i < experienceCount; i++) {
-            var experienceArray = req.body['experience['+i+']']
+            var experienceArray = req.body['experience[' + i + ']']
             var startDate = new Date(experienceArray[3]);
             var endDate = new Date(experienceArray[4])
             var experienceObject = {
@@ -100,26 +102,25 @@ exports.updateProfile = async (req, res) => {
 
         await student.save()
 
-        res.send(student)
+        // res.send(student)
+        res.redirect('/student/profile')
     } catch (error) {
         res.send(error)
     }
 };
 
-exports.createAvatar = (req, res) => {
-    async (req, res) => {
-        const buffer = await sharp(req.file.buffer).resize({
-            width: 250,
-            height: 250
-        }).png().toBuffer()
-        req.user.avatar = buffer
-        await req.user.save()
-        res.send()
-    }, (error, req, res, next) => {
-        res.status(400).send({
-            error: error.message
-        })
-    }
+exports.createAvatar = async (req, res) => {
+    const buffer = await sharp(req.file.buffer).resize({
+        width: 250,
+        height: 250
+    }).png().toBuffer()
+    req.user.avatar = buffer
+    await req.user.save()
+    res.redirect('/student/profile')
+}, (error, req, res, next) => {
+    res.status(400).send({
+        error: error.message
+    })
 }
 
 exports.showAvatar = async (req, res) => {
@@ -127,7 +128,7 @@ exports.showAvatar = async (req, res) => {
         if (!req.user.avatar) {
             throw new Error('Avatar does not exist.')
         }
-        res.set('Content-Type', 'image/jpg')
+        res.set('Content-Type', 'image/png')
         res.send(req.user.avatar)
     } catch (error) {
         res.status(404).send({
@@ -138,6 +139,36 @@ exports.showAvatar = async (req, res) => {
 
 exports.deleteAvatar = async (req, res) => {
     req.user.avatar = undefined
+    await req.user.save()
+    res.send()
+}
+
+exports.createResume = async (req, res) => {
+    const buffer = req.file.buffer
+    req.user.resume = buffer
+    await req.user.save()
+    res.redirect('/student/profile')
+}, (error, req, res, next) => {
+    res.status(400).send({
+        error: error.message
+    })
+}
+
+exports.showResume = async (req, res) => {
+    try {
+        if (!req.user.resume) {
+            throw new Error('Resume does not exist.')
+        }
+        res.send(req.user.resume)
+    } catch (error) {
+        res.status(404).send({
+            error: error.message
+        })
+    }
+}
+
+exports.deleteResume = async (req, res) => {
+    req.user.resume = undefined
     await req.user.save()
     res.send()
 }

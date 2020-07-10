@@ -2,7 +2,11 @@
 
 <div class="container">
     <h1 style="margin-top: 3rem;">My Profile</h1>
-
+    <form action="/student/avatar" method="post" enctype="multipart/form-data">
+        <img src="<%=`http://localhost:3000/${Student._id}/avatar`%>" alt="">
+        <input type="file" name="avatar" />
+        <input type="submit" name="avatar" value="Upload">
+    </form>
     <h3 style="margin-top: 3rem;">Basic Details</h3>
     <hr />
     <form class="" action="/student" method="POST">
@@ -275,23 +279,20 @@
         <h3 style="margin-top: 3rem;">Attachments</h3>
         <hr />
         <div class="form-row">
-            <div class="input-group mb-3 col-md-4 mb-3">
+            <div class="input-group mb-3 col-md-6 mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">LinkedIn</span>
                 </div>
                 <input name="linkedin" type="text" class="form-control" id="basic-url"
                     aria-describedby="basic-addon3" />
             </div>
-            <div class="input-group mb-3 col-md-4 mb-3">
+            <div class="input-group mb-3 col-md-6 mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">GitHub</span>
                 </div>
                 <input name="github" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" />
             </div>
-            <div class="form-group col-md-4 mb-3">
-                <input name="fileName" type="text" class="custom-file-input" id="customFile" />
-                <label class="custom-file-label" for="customFile">Resume - Choose file</label>
-            </div>
+
         </div>
 
         <div style="height: 10rem;" class="mybutton">
@@ -300,8 +301,13 @@
             </button>
         </div>
     </form>
+    <form action="/student/resume" method="post" enctype="multipart/form-data">
+        <input style="height: 10rem;" class="mybutton" name="resume" type="file" class="custom-file-input" id="customFile" />
+        <label class="custom-file-label" for="customFile">Resume - Choose file</label>
+        <input type="submit" name="resume" value="Upload">
+    </form>
 </div>
 
-<script src="/js/add-student-profile-develop.js"></script>
+<script src="/js/add-student-profile.js"></script>
 
 <%- include('partials/footer'); -%>

@@ -223,10 +223,14 @@ const StudentSchema = new mongoose.Schema({
         title: "GitHub",
         type: String
     },
-    fileName: {
+    resume: {
         title: "Resume",
         type: Buffer
     },
+    avatar: {
+        type: Buffer,
+        title: "Profile Pic"
+    }
 
 },
     { timestamps: true }
