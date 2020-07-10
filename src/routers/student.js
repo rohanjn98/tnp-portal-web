@@ -34,6 +34,10 @@ router.delete('/student/avatar', ensureAuthenticated, deleteAvatar)
 
 router.get('/:StudentId/avatar', ensureAuthenticated, showAvatar)
 
+router.delete('/student/resume', ensureAuthenticated, deleteResume)
+
+router.get('/:StudentId/resume', ensureAuthenticated, showResume)
+
 router.delete("/student/:StudentId", ensureAuthenticated, deleteStudent);
 
 module.exports = router;
