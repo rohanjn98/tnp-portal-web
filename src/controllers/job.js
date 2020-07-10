@@ -1,5 +1,41 @@
 const Jobpost = require("../models/job")
-const Student = require("../models/student")
+const Student = require("../models/student");
+const e = require("cors");
+const sgMail = require('@sendgrid/mail');
+const dotenv = require('dotenv');
+dotenv.config();
+function isEligible(req) {
+    //CGPA Check
+    let flag = 0;
+    if (req.user.cgpa >= req.jobpost.eligibility.cgpa) {
+        console.log('CGPA criteria satisfied! :)')
+        flag++;
+    }
+    else {
+        console.log('CGPA criteria Not satisfied!')
+    }
+    //Bklg check
+    if (req.user.backlog === req.jobpost.eligibility.backlogAllowed) {
+        flag++;
+        console.log("Backlog criteria satisfied! :)")
+    }
+    else {
+        console.log('Backlog criteria Not satisfied!')
+    }
+    // Branch Check
+    if (req.jobpost.eligibility.branch.includes(req.user.department)) {
+        flag++;
+        console.log('Branch criteria satisfied! :)')
+    }
+    else {
+        console.log('Branch criteria Not satisfied!')
+    }
+    if (flag === 3) {
+        return true;
+    }
+    return false;
+
+}
 
 exports.getJobById = async (req, res, next, id) => {
     try {
@@ -27,12 +63,12 @@ exports.showHomePage = async (req, res) => {
             if (paginatedResults.docs.length === 0) {
                 res.send('<h1>No jobs eh, mate!</h1>');
             } else {
-                res.render('home',{
-                  total:paginatedResults.total,
-                  limit:paginatedResults.limit,
-                  page:paginatedResults.page,
-                  pages:paginatedResults.pages,
-                  jobs:paginatedResults.docs
+                res.render('home', {
+                    total: paginatedResults.total,
+                    limit: paginatedResults.limit,
+                    page: paginatedResults.page,
+                    pages: paginatedResults.pages,
+                    jobs: paginatedResults.docs
                 });
             }
         } catch (error) {
@@ -44,12 +80,12 @@ exports.showHomePage = async (req, res) => {
             if (paginatedResults.docs.length === 0) {
                 res.send('<h1>No jobs eh, mate!</h1>');
             } else {
-                res.render('home',{
-                  total:paginatedResults.total,
-                  limit:paginatedResults.limit,
-                  page:paginatedResults.page,
-                  pages:paginatedResults.pages,
-                  jobs:paginatedResults.docs
+                res.render('home', {
+                    total: paginatedResults.total,
+                    limit: paginatedResults.limit,
+                    page: paginatedResults.page,
+                    pages: paginatedResults.pages,
+                    jobs: paginatedResults.docs
                 });
             }
         } catch (error) {
@@ -67,12 +103,30 @@ exports.showCreateJobPage = (req, res) => {
 }
 
 exports.createJob = async (req, res) => {
+    console.log(process.env.SENDGRID_API_KEY);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
     if (req.user.role === 1) {
         const job = new Jobpost(req.body);
-        console.log(job);
+        const eligibleStudents = await Student.find({ cgpa: { $gte: job.eligibility.cgpa }, backlog: job.eligibility.backlogAllowed, department: { $in: job.eligibility.branch } },);
+        const eligibleEmail = eligibleStudents.map(s => s.email)
+        const msg = {
+            to: eligibleEmail,
+            from: 'finalproject.vnit@gmail.com',
+            subject: `New Job is added by ${job.companyName}`,
+            text: `New Job is added by ${job.companyName}`,
+            html: '<strong>Checkout the new job offer</strong>',
+        };
+        sgMail.sendMultiple(msg).then(() => {
+            console.log('emails sent successfully!');
+        }).catch(error => {
+            console.log(error);
+        });
+        console.log(eligibleEmail);
+        //console.log(job);
         try {
-            await job.save()
-            res.redirect('/home/1')
+            //await job.save()
+            //res.redirect('/home/1')
         } catch (error) {
             res.status(500).send()
         }
@@ -124,39 +178,44 @@ const escapeRegex = (text) => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
 exports.applyJob = async (req, res) => {
     console.log(req.jobpost)
     console.log(req.user)
-    let flag = 0;
-
-    //CGPA Check
-    if (req.user.cgpa >= req.jobpost.eligibility.cgpa) {
-        console.log('CGPA criteria satisfied! :)')
-        flag++;
-    }
-    else {
-        console.log('CGPA criteria Not satisfied!')
-    }
-    //Bklg check
-    if (req.user.backlog === req.jobpost.eligibility.backlogAllowed) {
-        flag++;
-        console.log("Backlog criteria satisfied! :)")
-    }
-    else {
-        console.log('Backlog criteria Not satisfied!')
-    }
-    // Branch Check
-    if (req.jobpost.eligibility.branch.includes(req.user.department)) {
-        flag++;
-        console.log('Branch criteria satisfied! :)')
-    }
-    else {
-        console.log('Branch criteria Not satisfied!')
-    }
-    if (flag === 3) {
+    if (isEligible(req)) {
         req.user.postSaved.push(req.jobpost.companyName)
         req.user.save();
     }
     else {
         console.log('Cannot apply to this Job!')
     }
+    // //CGPA Check
+    // if (req.user.cgpa >= req.jobpost.eligibility.cgpa) {
+    //     console.log('CGPA criteria satisfied! :)')
+    //     flag++;
+    // }
+    // else {
+    //     console.log('CGPA criteria Not satisfied!')
+    // }
+    // //Bklg check
+    // if (req.user.backlog === req.jobpost.eligibility.backlogAllowed) {
+    //     flag++;
+    //     console.log("Backlog criteria satisfied! :)")
+    // }
+    // else {
+    //     console.log('Backlog criteria Not satisfied!')
+    // }
+    // // Branch Check
+    // if (req.jobpost.eligibility.branch.includes(req.user.department)) {
+    //     flag++;
+    //     console.log('Branch criteria satisfied! :)')
+    // }
+    // else {
+    //     console.log('Branch criteria Not satisfied!')
+    // }
+    // if (flag === 3) {
+    //     req.user.postSaved.push(req.jobpost.companyName)
+    //     req.user.save();
+    // }
+    // else {
+    //     console.log('Cannot apply to this Job!')
+    // }
     //TODO- add Flash message for applied or not succesfully.
     res.render("job", {
         job: req.jobpost
