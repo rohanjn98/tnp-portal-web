@@ -1,5 +1,6 @@
-var i = 1; //experience div count
-var j = 1; //education div count
+// var x = document.getElementById("myDIV").childElementCount;
+// var i = 1; //experience div count
+// var j = 1; //education div count
 
 //Experience
 var originalDivExperience = document.getElementById('duplicaterExperience');
@@ -10,6 +11,9 @@ var deleteDivExperience = document.getElementById("deleteExperience");
 var originalDivEducation = document.getElementById('duplicaterEducation');
 var parentDivEducation = document.getElementById("parentDivEducation");
 var deleteDivEducation = document.getElementById("deleteEducation");
+
+var i = parentDivEducation.childElementCount;
+var j = parentDivExperience.childElementCount;
 
 function checkVisibility(Check) {
     if (Check == "Experience") {
@@ -25,7 +29,8 @@ function checkVisibility(Check) {
         deleteDiv.style.visibility = 'hidden';
     }
 }
-
+checkVisibility("Education")
+checkVisibility("Experience")
 function deleteExperience() {
     parentDivExperience.removeChild(parentDivExperience.lastChild)
     i--;

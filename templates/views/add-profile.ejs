@@ -9,8 +9,7 @@
         <div class="form-row">
             <div class="form-group col-md-4 mb-3">
                 <label for="exampleFormControlInput1">First Name</label>
-                <input name="firstName" type="text" class="form-control" id="exampleFormControlInput1"
-                    value="<%= Student.firstName %>" />
+                <input name="firstName" type="text" class="form-control" id="exampleFormControlInput1" value="<%= Student.firstName %>" />
             </div>
             <div class="form-group col-md-4 mb-3">
                 <label for="exampleFormControlInput1">Middle Name</label>
@@ -18,8 +17,7 @@
             </div>
             <div class="form-group col-md-4 mb-3">
                 <label for="exampleFormControlInput1">Last Name</label>
-                <input name="lastName" type="text" class="form-control" id="exampleFormControlInput1"
-                    value="<%= Student.lastName %>" />
+                <input name="lastName" type="text" class="form-control" id="exampleFormControlInput1" value="<%= Student.lastName %>" />
             </div>
         </div>
         <div class="form-group">
@@ -30,7 +28,11 @@
         <div class="form-group">
             <label for="exampleFormControlInput1">Branch</label>
             <select name="department" class="custom-select" id="validationDefault04">
-                <option selected disabled value="">Choose...</option>
+                <% if (Student.department) { %>
+                    <option selected><%= Student.department %></option>
+                <% } else { %>
+                    <option selected disabled value="">Choose...</option>
+                <% } %>
                 <option>B.Tech. Electronics and Communication Engineering</option>
                 <option>B.Tech. Computer Science Engineering</option>
                 <option>B.Tech. Electrical and Electronics Engineering</option>
@@ -58,7 +60,11 @@
             <div class="form-group col-md-6 mb-3">
                 <label for="exampleFormControlInput1">Year</label>
                 <select name="year" class="custom-select" id="validationDefault04">
-                    <option selected disabled value="">Choose...</option>
+                    <% if (Student.year) { %>
+                        <option selected><%= Student.year %></option>
+                    <% } else { %>
+                        <option selected disabled value="">Choose...</option>
+                    <% } %>
                     <option>First</option>
                     <option>Second</option>
                     <option>Third</option>
@@ -67,24 +73,28 @@
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label for="exampleFormControlInput1">CGPA (current)</label>
-                <input name="cgpa" type="number" class="form-control" id="exampleFormControlInput1" />
+                <input name="cgpa" type="number" class="form-control" id="exampleFormControlInput1" value="<%= Student.cgpa %>"/>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6 mb-3">
                 <label for="exampleFormControlInput1">Date of Birth</label>
-                <input name="dob" type="date" class="form-control" id="exampleFormControlInput1" />
+                <input name="dob" type="date" class="form-control" id="exampleFormControlInput1" value="<%= (new Date(Student.dob).toISOString().substring(0, 10)) %>"/>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label for="exampleFormControlInput1">Contact</label>
-                <input name="contact" type="number" class="form-control" id="exampleFormControlInput1" />
+                <input name="contact" type="number" class="form-control" id="exampleFormControlInput1" value="<%= Student.contact %>"/>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6 mb-3">
                 <label for="exampleFormControlInput1">Gender</label>
                 <select name="gender" class="custom-select" id="validationDefault04">
-                    <option selected disabled value="">Choose...</option>
+                    <% if (Student.gender) { %>
+                        <option selected><%= Student.gender %></option>
+                    <% } else { %>
+                        <option selected disabled value="">Choose...</option>
+                    <% } %>
                     <option>Male</option>
                     <option>Female</option>
                     <option>Prefer Not To Say</option>
@@ -93,7 +103,11 @@
             <div class="form-group col-md-6 mb-3">
                 <label for="exampleFormControlInput1">Category</label>
                 <select name="category" class="custom-select" id="validationDefault04">
-                    <option selected disabled value="">Choose...</option>
+                    <% if (Student.category) { %>
+                        <option selected><%= Student.category %></option>
+                    <% } else { %>
+                        <option selected disabled value="">Choose...</option>
+                    <% } %>
                     <option>SC</option>
                     <option>ST</option>
                     <option>OBC</option>
@@ -105,7 +119,11 @@
         <div class="form-group">
             <label for="exampleFormControlInput1">PWD</label>
             <select name="pwd" class="custom-select" id="validationDefault04">
-                <option selected disabled value="">Choose...</option>
+                <% if (Student.pwd) { %>
+                    <option selected><%= Student.pwd %></option>
+                <% } else { %>
+                    <option selected disabled value="">Choose...</option>
+                <% } %>
                 <option>Yes</option>
                 <option>No</option>
             </select>
@@ -117,24 +135,24 @@
             <label for="exampleFormControlInput1">Permanent Address</label>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Address Line 1</label>
-                <input value="hola am" name="address[0]" type="text" class="form-control" id="permanentAddressLine1" />
+                <input value="hola am" name="address[0]" type="text" class="form-control" id="permanentAddressLine1" value="<%= Student.address[0].addressLine1 %>"/>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Address Line 2</label>
-                <input name="address[0]" type="text" class="form-control" id="permanentAddressLine2" />
+                <input name="address[0]" type="text" class="form-control" id="permanentAddressLine2" value="<%= Student.address[0].addressLine2 %>"/>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">City</label>
-                    <input name="address[0]" type="text" class="form-control" id="permanentCity" />
+                    <input name="address[0]" type="text" class="form-control" id="permanentCity" value="<%= Student.address[0].city %>"/>
                 </div>
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">State</label>
-                    <input name="address[0]" type="text" class="form-control" id="permanentState" />
+                    <input name="address[0]" type="text" class="form-control" id="permanentState" value="<%= Student.address[0].state %>"/>
                 </div>
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">Country</label>
-                    <input name="address[0]" type="text" class="form-control" id="permanentCountry" />
+                    <input name="address[0]" type="text" class="form-control" id="permanentCountry" value="<%= Student.address[0].country %>"/>
                 </div>
             </div>
         </div>
@@ -146,58 +164,58 @@
             <label for="exampleFormControlInput1">Current Address</label>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Address Line 1</label>
-                <input name="address[1]" type="text" class="form-control" id="currentAddressLine1" />
+                <input name="address[1]" type="text" class="form-control" id="currentAddressLine1" value="<%= Student.address[1].addressLine1 %>"/>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Address Line 2</label>
-                <input name="address[1]" type="text" class="form-control" id="currentAddressLine3" />
+                <input name="address[1]" type="text" class="form-control" id="currentAddressLine3" value="<%= Student.address[1].addressLine2 %>"/>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">City</label>
-                    <input name="address[1]" type="text" class="form-control" id="currentCity" />
+                    <input name="address[1]" type="text" class="form-control" id="currentCity" value="<%= Student.address[1].city %>"/>
                 </div>
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">State</label>
-                    <input name="address[1]" type="text" class="form-control" id="currentState" />
+                    <input name="address[1]" type="text" class="form-control" id="currentState" value="<%= Student.address[1].state %>"/>
                 </div>
                 <div class="form-group col-md-4 mb-3">
                     <label for="exampleFormControlInput1">Country</label>
-                    <input name="address[1]" type="text" class="form-control" id="currentCountry" />
+                    <input name="address[1]" type="text" class="form-control" id="currentCountry" value="<%= Student.address[1].country %>"/>
                 </div>
             </div>
         </div>
 
         <div id="parentDivEducation">
-            <div>
-                <h3 style="margin-top: 3rem;">Education 1</h3>
-                <hr />
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Institue Name</label>
-                    <input name="education[0]" type="text" class="form-control"
-                        id="exampleFormControlInput1" />
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Degree</label>
-                    <input name="education[0]" type="text" class="form-control" id="exampleFormControlInput1" />
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">Start Date</label>
-                        <input name="education[0]" type="date" class="form-control"
-                            id="exampleFormControlInput1" />
+            <% Student.education.forEach((education, i) => { %>
+                <div>
+                    <h3 style="margin-top: 3rem;">Education <%= i+1 %></h3>
+                    <hr />
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Institue Name</label>
+                        <input name="<%=`education[${i}]`%>" type="text" class="form-control"
+                            id="exampleFormControlInput1" value="<%= education.institute %>"/>
                     </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">End Date</label>
-                        <input name="education[0]" type="date" class="form-control"
-                            id="exampleFormControlInput1" />
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Degree</label>
+                        <input name="<%=`education[${i}]`%>" type="text" class="form-control" id="exampleFormControlInput1" value="<%= education.degree %>"/>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="exampleFormControlInput1">Start Date</label>
+                            <input name="<%=`education[${i}]`%>" type="date" class="form-control" id="exampleFormControlInput1" value="<%= (new Date(education.endDate).toISOString().substring(0, 10)) %>"/>
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="exampleFormControlInput1">End Date</label>
+                            <input name="<%=`education[${i}]`%>" type="date" class="form-control" id="exampleFormControlInput1" value="<%= (new Date(education.endDate).toISOString().substring(0, 10)) %>"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">CGPA</label>
+                        <input name="<%=`education[${i}]`%>" type="number" class="form-control" id="exampleFormControlInput1" value="<%= education.cgpa %>"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">CGPA</label>
-                    <input name="education[0]" type="number" class="form-control" id="exampleFormControlInput1" />
-                </div>
-            </div>
+            <% }); %>
         </div>
 
         <a href="#container" id="addEducation" onclick="duplicateDivEducation()">Add Education</a>
@@ -205,47 +223,49 @@
             | <span style="color: #ff0000;">Delete Education</span></a>
 
         <div id="parentDivExperience">
-            <div>
-                <h3 style="margin-top: 3rem;">Experience 1</h3>
-                <hr />
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Company/Organization Name</label>
-                    <input name="experience[0]" type="text" class="form-control"
-                        id="exampleFormControlInput1" />
+            <% Student.experience.forEach((experience, i) => { %>
+                <div>
+                    <h3 style="margin-top: 3rem;">Experience <%= i+1 %></h3>
+                    <hr />
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Company/Organization Name</label>
+                        <input name="<%=`experience[${i}]`%>" type="text" class="form-control" id="exampleFormControlInput1" value="<%= experience.organization %>" />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="exampleFormControlInput1">Experience Title</label>
+                            <input name="<%=`experience[${i}]`%>" type="text" class="form-control" id="exampleFormControlInput1"  value="<%= experience.experienceTitle %>"/>
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="exampleFormControlInput1">Employment Type</label>
+                            <select name="<%=`experience[${i}]`%>" class="custom-select" id="validationDefault04">
+                                <% if (experience.employmentType) { %>
+                                    <option selected><%= experience.employmentType %></option>
+                                <% } else { %>
+                                    <option selected disabled value="">Choose...</option>
+                                <% } %>
+                                <option>Full-Time</option>
+                                <option>Part-Time</option>
+                                <option>Self-Employed</option>
+                                <option>Freelance</option>
+                                <option>Contract</option>
+                                <option>Internship</option>
+                                <option>Apprenticeship</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="exampleFormControlInput1">Start Date</label>
+                            <input name="<%=`experience[${i}]`%>" type="date" class="form-control" id="exampleFormControlInput1"  value="<%= (new Date(experience.startDate).toISOString().substring(0, 10)) %>" />
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="exampleFormControlInput1">End Date</label>
+                            <input name="<%=`experience[${i}]`%>" type="date" class="form-control" id="exampleFormControlInput1" value="<%= (new Date(experience.endDate).toISOString().substring(0, 10)) %>"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">Experience Title</label>
-                        <input name="experience[0]" type="text" class="form-control"
-                            id="exampleFormControlInput1" />
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">Employment Type</label>
-                        <select name="experience[0]" class="custom-select" id="validationDefault04">
-                            <option selected disabled value="">Choose...</option>
-                            <option>Full-Time</option>
-                            <option>Part-Time</option>
-                            <option>Self-Employed</option>
-                            <option>Freelance</option>
-                            <option>Contract</option>
-                            <option>Internship</option>
-                            <option>Apprenticeship</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">Start Date</label>
-                        <input name="experience[0]" type="date" class="form-control"
-                            id="exampleFormControlInput1" />
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="exampleFormControlInput1">End Date</label>
-                        <input name="experience[0]" type="date" class="form-control"
-                            id="exampleFormControlInput1" />
-                    </div>
-                </div>
-            </div>
+            <% }); %>
         </div>
 
         <a href="#container" id="addExperience" onclick="duplicateDivExperience()">Add Experience</a>
@@ -275,14 +295,13 @@
         </div>
 
         <div style="height: 10rem;" class="mybutton">
-            <button id="submitButton" name="submitProfile" class="btn btn-primary" type="submit"
-                class="btn btn-primary mybutton">
-                Submit
+            <button id="submitButton" name="submitProfile" class="btn btn-primary" type="submit" class="btn btn-primary mybutton">
+                Update
             </button>
         </div>
     </form>
 </div>
 
-<script src="/js/add-student-profile.js"></script>
+<script src="/js/add-student-profile-develop.js"></script>
 
 <%- include('partials/footer'); -%>

@@ -26,7 +26,8 @@ exports.showAllStudentsPage = async (req, res) => {
 }
 
 exports.showUpdateProfilePage = (req, res) => {
-    res.render('add-profile', {
+    console.log(req.user);
+    res.render('add-profile-develop', {
         Student: req.user
     });
 }
@@ -48,7 +49,6 @@ exports.updateProfile = async (req, res) => {
 
         for (var i = 0; i < 2; i++) {
             var addressArray = req.body['address['+i+']']
-            console.log(addressArray);
             var addressObject = {
                 addressLine1: addressArray[0],
                 addressLine2: addressArray[1],
@@ -89,9 +89,9 @@ exports.updateProfile = async (req, res) => {
             var startDate = new Date(experienceArray[3]);
             var endDate = new Date(experienceArray[4])
             var experienceObject = {
-                experienceTitle: experienceArray[0],
-                employmentType: experienceArray[1],
-                organization: experienceArray[2],
+                organization: experienceArray[0],
+                experienceTitle: experienceArray[1],
+                employmentType: experienceArray[2],
                 startDate: startDate,
                 endDate: endDate
             }
