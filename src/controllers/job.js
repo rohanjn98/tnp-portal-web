@@ -17,16 +17,36 @@ exports.showHomePage = async (req, res) => {
     // Method3: Complete implementation on front-end using 'onkeyup'
     const page = parseInt(req.params.page)
     const pagination = 3
-
+    
     if (req.query.search) {
         const regex = new RegExp(escapeRegex(req.query.search), 'gi') //g -> global match, i -> ignore case
         try {
             const jobs = await Jobpost.paginate({
                 'companyName': regex
-            }, { page: page, limit: pagination })
+            }, { page: page, limit: pagination });
+            console.log(jobs)
+            if (jobs.docs.length === 0) {
+                res.send('<h1>No jobs eh, mate!</h1>');
+            } else{
+                res.render('home',{
+                  total:jobs.total,
+                  limit:jobs.limit,
+                  page:jobs.page,
+                  pages:jobs.pages,
+                  jobs:jobs.docs,
+                  
+                });
+            }
+        } catch (error) {
+            res.status(500).send()
+        }
+    } else {
+        try {
+            console.log(req.user.role)
+            const paginatedResults = await Jobpost.paginate({}, { page: page, limit: pagination })
             if (paginatedResults.docs.length === 0) {
                 res.send('<h1>No jobs eh, mate!</h1>');
-            } else {
+            } else if(req.user.role==0) {
                 res.render('home',{
                   total:paginatedResults.total,
                   limit:paginatedResults.limit,
@@ -35,22 +55,8 @@ exports.showHomePage = async (req, res) => {
                   jobs:paginatedResults.docs
                 });
             }
-        } catch (error) {
-            res.status(500).send()
-        }
-    } else {
-        try {
-            const paginatedResults = await Jobpost.paginate({}, { page: page, limit: pagination })
-            if (paginatedResults.docs.length === 0) {
-                res.send('<h1>No jobs eh, mate!</h1>');
-            } else {
-                res.render('home',{
-                  total:paginatedResults.total,
-                  limit:paginatedResults.limit,
-                  page:paginatedResults.page,
-                  pages:paginatedResults.pages,
-                  jobs:paginatedResults.docs
-                });
+            else{
+                res.render('dashboard');        
             }
         } catch (error) {
             res.status(500).send()
