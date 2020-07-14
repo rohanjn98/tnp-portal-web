@@ -52,7 +52,7 @@ exports.showHomePage = async (req, res) => {
                   limit:paginatedResults.limit,
                   page:paginatedResults.page,
                   pages:paginatedResults.pages,
-                  jobs:paginatedResults.docs
+                  jobs:paginatedResults.docs    
                 });
             }
             else{
