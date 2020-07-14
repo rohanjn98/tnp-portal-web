@@ -23,6 +23,8 @@ const authRoutes = require('./routers/auth');
 const jobRoutes = require('./routers/job')
 const studentRoutes = require('./routers/student')
 const scheduleRoutes = require('./routers/schedule');
+const recordRoutes = require('./routers/record');
+
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public')
@@ -36,7 +38,7 @@ app.use(express.static(publicDirectoryPath))
 app.set('view engine', 'ejs');
 app.set('views', viewsPath)
 app.use(express.urlencoded({
-    extended: false
+  extended: false
 }));
 
 // Express session
@@ -56,7 +58,7 @@ app.use(passport.session());
 app.use(flash());
 
 // Global variables
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
@@ -74,13 +76,15 @@ app.use(jobRoutes)
 app.use(studentRoutes)
 app.use(scheduleRoutes);
 app.use(authRoutes);
+app.use(recordRoutes);
+
 
 // Home GET Route
 app.get("/", (req, res) => {
-    res.redirect("/login")
+  res.redirect("/login")
 });
 
 // PORT = 3000
-app.listen(process.env.PORT || 3000, function() {
-    console.log("Server is running on port 3000");
+app.listen(process.env.PORT || 3000, function () {
+  console.log("Server is running on port 3000");
 });

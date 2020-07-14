@@ -1,5 +1,6 @@
 const Jobpost = require("../models/job")
 const Student = require("../models/student")
+const Record = require("../models/record")
 
 exports.getJobById = async (req, res, next, id) => {
     try {
@@ -128,8 +129,8 @@ const escapeRegex = (text) => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
 // COntrollers for One click apply
 
 exports.applyJob = async (req, res) => {
-    console.log(req.jobpost)
-    console.log(req.user)
+    console.log(req.jobpost._id)
+    console.log(req.user._id)
     let flag = 0;
 
     //CGPA Check
@@ -159,6 +160,14 @@ exports.applyJob = async (req, res) => {
     if (flag === 3) {
         req.user.postSaved.push(req.jobpost.companyName)
         req.user.save();
+        const record = Record(
+            {
+                "student": req.user._id,
+                "job": req.jobpost._id,
+                "jobStatus": "Applied"
+            }
+        ).save()
+        
     }
     else {
         console.log('Cannot apply to this Job!')
