@@ -13,7 +13,12 @@ const recordSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Jobpost"
     },
-
+    jobStatus: {
+        title: "Job Status",
+        type: String, // Applied, SelectedForInterview, SelectedForJob
+        enum: ["Applied", "Selected For Interview", "Selected For Job"],
+        required: false,
+    }
 });
 
 //Collection

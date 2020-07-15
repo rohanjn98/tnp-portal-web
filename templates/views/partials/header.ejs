@@ -63,17 +63,30 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/home/1">Home <span class="sr-only">Home</span></a>
+                        <% if (role === 0) { %>
+                            <a class="nav-link" href="/home/1">Home <span class="sr-only">Home</span></a>
+                        <%} else{%>
+                            <a class="nav-link" href="/dashboard">Dashboard <span class="sr-only">Dashboard</span></a>
+                        <% } %>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/schedule">Applications </a>
+                        <% if (role === 0) { %>
+                            <a class="nav-link" href="/schedule">Applications </a>
+                        <%} else{%>
+                            <a class="nav-link" href="/home/1/jobpost">Add Job </a>
+                        <% } %>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/student/profile">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notifications</a>
-                    </li>
+                    <% if (role === 0) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/student/profile">Profile</a>
+                        </li>
+                    <% } %>
+
+                    <% if (role === 0) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Notifications</a>
+                        </li>
+                    <% } %>
                     <li class="nav-item">
                         <a class="nav-link" href="/signout">Signout</a>
                     </li>
