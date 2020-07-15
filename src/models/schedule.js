@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-const ScheduleSchema = new Schema(
+const ScheduleSchema = new mongoose.Schema(
     {
         date: {
             title: "date of event",     // event can be "PPT", "Online Exam", "Interview"

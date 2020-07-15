@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 var mongoosePaginate = require('mongoose-paginate');
-const Schema = mongoose.Schema;
 
 //Create a Elgibility Schema
-const ElgibilitySchema = new Schema(
+const ElgibilitySchema = new mongoose.Schema(
     {
         branch: {
             title: "Eligible Branches",
@@ -23,7 +22,7 @@ const ElgibilitySchema = new Schema(
 );
 
 //Create a File Schema
-const FileSchema = new Schema(
+const FileSchema = new mongoose.Schema(
     {
         name: {
             title: "File Name",
@@ -42,7 +41,7 @@ const FileSchema = new Schema(
 
 
 //Jobs Schema
-const jobsSchema = Schema({
+const jobsSchema = new mongoose.Schema({
 
     jobID: {
         type: String,

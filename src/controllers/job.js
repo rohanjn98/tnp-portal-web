@@ -1,5 +1,6 @@
 const Jobpost = require("../models/job")
 const Student = require("../models/student")
+const Record = require("../models/record")
 
 exports.getJobById = async (req, res, next, id) => {
     try {
@@ -122,45 +123,56 @@ const escapeRegex = (text) => text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
 // COntrollers for One click apply
 
 exports.applyJob = async (req, res) => {
-    console.log(req.jobpost)
-    console.log(req.user)
-    let flag = 0;
+    try {
+        // console.log(req.jobpost)
+        console.log(req.user._id)
+        console.log(Record)
 
-    //CGPA Check
-    if (req.user.cgpa >= req.jobpost.eligibility.cgpa) {
-        console.log('CGPA criteria satisfied! :)')
-        flag++;
+        let flag = 0;
+
+        //CGPA Check
+        if (req.user.cgpa >= req.jobpost.eligibility.cgpa) {
+            console.log('CGPA criteria satisfied! :)')
+            flag++;
+        } else {
+            console.log('CGPA criteria Not satisfied!')
+        }
+        //Bklg check
+        if (req.user.backlog === req.jobpost.eligibility.backlogAllowed) {
+            flag++;
+            console.log("Backlog criteria satisfied! :)")
+        } else {
+            console.log('Backlog criteria Not satisfied!')
+        }
+        // Branch Check
+        if (req.jobpost.eligibility.branch.includes(req.user.department)) {
+            flag++;
+            console.log('Branch criteria satisfied! :)')
+        } else {
+            console.log('Branch criteria Not satisfied!')
+        }
+        if (flag === 3) {
+
+            // Save in Record schema
+            const record = new Record({
+                student: req.user._id,
+                job: req.jobpost._id
+            })
+
+            await record.save()
+
+            const savedRecord = await Record.find({}).populate(["student", "job"]).exec()
+
+            console.log(savedRecord);
+            res.send(savedRecord)
+
+        } else {
+            console.log('Cannot apply to this Job!')
+        }
+    } catch (e) {
+        res.send('Error:' + e)
     }
-    else {
-        console.log('CGPA criteria Not satisfied!')
-    }
-    //Bklg check
-    if (req.user.backlog === req.jobpost.eligibility.backlogAllowed) {
-        flag++;
-        console.log("Backlog criteria satisfied! :)")
-    }
-    else {
-        console.log('Backlog criteria Not satisfied!')
-    }
-    // Branch Check
-    if (req.jobpost.eligibility.branch.includes(req.user.department)) {
-        flag++;
-        console.log('Branch criteria satisfied! :)')
-    }
-    else {
-        console.log('Branch criteria Not satisfied!')
-    }
-    if (flag === 3) {
-        req.user.postSaved.push(req.jobpost.companyName)
-        req.user.save();
-    }
-    else {
-        console.log('Cannot apply to this Job!')
-    }
-    //TODO- add Flash message for applied or not succesfully.
-    res.render("job", {
-        job: req.jobpost
-    })
+
 }
 
 exports.filterJobs = async (req, res) => {
@@ -203,4 +215,5 @@ exports.filterJobs = async (req, res) => {
             jobs
         });
     }
+
 }
