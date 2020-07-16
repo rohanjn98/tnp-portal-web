@@ -12,7 +12,7 @@ router.param("JobStatusId", getJobStatusById);
 
 // Read Route
 router.get('/jobstatus/:JobStatusId', ensureAuthenticated, showJobStatus);
-router.get('/alljobstatus', ensureAuthenticated, showAllJobStatus);
+router.get('/alljobstatus', showAllJobStatus);
 
 
 // Update
