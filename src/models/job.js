@@ -120,6 +120,13 @@ const jobsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    schedule: {
+        title: "Schedule",     
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Schedule'
+          }]                     
+    },
 });
 
 jobsSchema.plugin(mongoosePaginate);
