@@ -26,16 +26,9 @@ exports.showAllJobStatus = async (req, res) => {
         const allRequiredRecords = await Record.find({}).populate("student job", "firstName lastName enrollment cgpa companyName profile").exec();
         console.log(allRequiredRecords)
 
-        await Record.find().sort('job.companyName').exec((error, records) => {
-            if (error || !records) {
-                return res.status(400).json({
-                    error: "No records Found"
-                })
-            }
-            //res.json(records)
-            res.render('allrecords', { Records: allRequiredRecords })
-
-        })
+        const records = await Record.find().sort('job.companyName').exec()
+        console.log(records)
+        res.render('allrecords', { Records: allRequiredRecords })
     }
     catch (e) {
         res.send('Error: ' + e);
