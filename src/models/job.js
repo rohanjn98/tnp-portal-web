@@ -86,7 +86,9 @@ const jobsSchema = new mongoose.Schema({
 
     category: {
         title: "Type of Job",       //Eg. Internship, Full Time, WFH, Project, etc (Could be shown in tags)
-        type: String
+        type: String,
+        enum: ["Intern", "Full time", "Work From Home", "Project"],
+        required: false
     },
 
     jobDescription: {

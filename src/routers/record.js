@@ -1,18 +1,23 @@
 const express = require('express')
 const router = express.Router();
 
-const { getJobStatusById, showJobStatus, showAllJobStatus, updateJobStatus, deleteJobStatus } = require('../controllers/record');
+const { getJobStatusById, showJobStatus, showAllJobStatus, updateJobStatus, deleteJobStatus, showThatJobStatus } = require('../controllers/record');
 const { ensureAuthenticated } = require('../controllers/auth');
 
-// MiddleWare for ID
+// MiddleWare for Id
 router.param("JobStatusId", getJobStatusById);
 
 
 // Create route done in One Click Apply
 
 // Read Route
+// Company wise- Read (new Implementation) with filter posting
+router.post('/showrecords', showThatJobStatus)
+// Original route- to be depricated
 router.get('/jobstatus/:JobStatusId', ensureAuthenticated, showJobStatus);
-router.get('/alljobstatus', ensureAuthenticated, showAllJobStatus);
+router.get('/searchjobstatus', showAllJobStatus);
+
+
 
 
 // Update

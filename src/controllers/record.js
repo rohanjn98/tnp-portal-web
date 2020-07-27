@@ -21,16 +21,55 @@ exports.showJobStatus = async (req, res) => {
     }
 };
 
-exports.showAllJobStatus = (req, res) => {
-    Record.find().exec((error, records) => {
-        if (error || !records) {
-            return res.status(400).json({
-                error: "No records Found"
-            })
-        }
-        res.json(records)
-    })
+// Old Read
+exports.showAllJobStatus = async (req, res) => {
+    try {
+        res.render('allrecords', { Records: [] })
+    }
+    catch (e) {
+        res.send('Error: ' + e);
+    }
+
 };
+// New Method Read
+exports.showThatJobStatus = async (req, res) => {
+    try {
+        var fltrCompName = req.body.fltrCompName;
+        var fltrCategory = req.body.fltrCategory;
+        if (fltrCategory != "" && fltrCategory != "Choose...") {
+            var fltrParam = {
+                $and: [{ 'companyName': fltrCompName }, { 'category': fltrCategory }]
+            }
+        }
+        else {
+            var fltrParam = {}
+            res.send("Enter both the inputs.");
+        }
+        console.log(fltrParam['$and'])
+        const thatJobStatus = await Jobpost.find(fltrParam)
+        console.log(thatJobStatus)
+        const jobIdentity = thatJobStatus[0]._id;
+        console.log(jobIdentity);
+        const thatRecordStatus = await Record.find({ 'job': jobIdentity }).populate("student job", "firstName lastName enrollment cgpa department companyName profile category").exec();
+        console.log(thatRecordStatus)
+        //sorting according to Firstname (Can sort with Branches for furhter clarity)
+        thatRecordStatus.sort(function (a, b) {
+            var nameA = a.student.firstName.toUpperCase();
+            var nameB = b.student.firstName.toUpperCase();
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+            // names must be equal
+            return 0;
+        });
+
+        res.render('allrecords', { Records: thatRecordStatus })
+    }
+    catch (e) { res.send('Error: ' + e); }
+}
 
 exports.updateJobStatus = async (req, res) => {
 
