@@ -13,12 +13,14 @@ const ScheduleSchema = new mongoose.Schema(
             title: "Name of event",
             type: String,
             required: true
-        },
-        jobId: {
-            title: 'Id of the job',             //To fetch the jobpost info
-            type: String,
-            required: true
         }
+        // ,
+        // jobId: {
+        //     title: 'Id of the job',             //To fetch the jobpost info
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: 'Jobpost',
+        //     required: true
+        //}
 
     }
 );

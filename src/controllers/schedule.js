@@ -1,5 +1,6 @@
 const Schedule = require("../models/schedule")
 const Jobpost = require('../models/job')
+const Record = require('../models/record')
 const express = require("express")
 const router = express.Router();
 
@@ -26,24 +27,27 @@ exports.getAllSchedules = (req, res) => {
     } else {
       try {
 
-         Record.find({ student: req.user._id })
-          .populate('job', 'companyName schedule').exec((err, posts) => {
-            console.log("Populated User " + posts);
+        const schedules = await Record.find({ student: req.user._id })
+          .populate({
+            path: "job",
+            model: "Jobpost",
+            populate: {path: "schedule", model: "Schedule"}
           });
 
+          console.log(schedules);
         // var jobposts = await getJobs(schedules);
         // //console.log("First try: "+jobposts.length);
-        // var today = schedules.filter((a)=>{
-        //   return a.date.getDate() == new Date().getDate() &&  a.date.getMonth() == new Date().getMonth() && a.date.getFullYear() == new Date().getFullYear();
-        // });
+        var today = schedules.filter((a)=>{
+          return a.date.getDate() == new Date().getDate() &&  a.date.getMonth() == new Date().getMonth() && a.date.getFullYear() == new Date().getFullYear();
+        });
 
-        // var yesterday = schedules.filter((a)=>{
-        //   return a.date.getDate() == new Date().getDate()-1 &&  a.date.getMonth() == new Date().getMonth() && a.date.getFullYear() == new Date().getFullYear();
-        // });
+        var yesterday = schedules.filter((a)=>{
+          return a.date.getDate() == new Date().getDate()-1 &&  a.date.getMonth() == new Date().getMonth() && a.date.getFullYear() == new Date().getFullYear();
+        });
 
-        // var upcoming = schedules.filter((a)=>{
-        //   return a.date > new Date();
-        // });
+        var upcoming = schedules.filter((a)=>{
+          return a.date > new Date();
+        });
         res.render('view-applications', {
           today: today,
           yesterday: yesterday,
