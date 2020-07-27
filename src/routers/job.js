@@ -36,7 +36,7 @@ router.delete("/jobpost/:JobId", ensureAuthenticated, deleteJob);
 router.get("/applyjob/:JobId/", ensureAuthenticated, applyJob)
 
 // Filter Job Route
-router.post("/searchfilter/", ensureAuthenticated, filterJobs)
+router.post("/searchfilter/:page", ensureAuthenticated, filterJobs)
 
 router.post("/action", function (req, res) {
   let str = req.body.buttonAction;

@@ -207,39 +207,149 @@ exports.filterJobs = async (req, res) => {
     var fltrName = req.body.fltrname;
     var fltrProfile = req.body.fltrProfile;
     var fltrCTC = req.body.fltrCTC;
-    var fltrDream = req.body.fltrDream;
 
-    if (fltrName != '' && fltrProfile != "" && fltrCTC != "") {
-        var fltrParameter = {
-            $and: [{ 'companyName': fltrName }, { 'profile': fltrProfile }, { 'ctc': fltrCTC }]
+    if (fltrName != '' && fltrProfile != "" && fltrCTC != "Choose...") {
+        if (fltrCTC === "1") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'profile': fltrProfile }, { 'ctc': { $gte: '0 LPA', $lte: '8 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "2") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'profile': fltrProfile }, { 'ctc': { $gt: '8 LPA', $lte: '15 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "3") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'profile': fltrProfile }, { 'ctc': { $gt: '15 LPA', $lte: '20 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "4") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'profile': fltrProfile }, { 'ctc': { $gt: '20 LPA', $lte: '30 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "5") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'profile': fltrProfile }, { 'ctc': { $gt: '30 LPA' } }]
+            }
         }
     }
-    else if (fltrName != '' && fltrProfile == "" && fltrCTC != "") {
-        var fltrParameter = {
-            $and: [{ 'companyName': fltrName }, { 'ctc': fltrCTC }]
+    else if (fltrName != '' && fltrProfile == "" && fltrCTC != "Choose...") {
+        if (fltrCTC === "1") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'ctc': { $gte: '0 LPA', $lte: '8 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "2") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'ctc': { $gt: '8 LPA', $lte: '15 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "3") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'ctc': { $gt: '15 LPA', $lte: '20 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "4") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'ctc': { $gt: '20 LPA', $lte: '30 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "5") {
+            var fltrParameter = {
+                $and: [{ 'companyName': fltrName }, { 'ctc': { $gt: '30 LPA' } }]
+            }
         }
     }
-    else if (fltrName == '' && fltrProfile != "" && fltrCTC != "") {
-        var fltrParameter = {
-            $and: [{ 'profile': fltrProfile }, { 'ctc': fltrCTC }]
+    else if (fltrName == '' && fltrProfile != "" && fltrCTC != "Choose...") {
+        if (fltrCTC === "1") {
+            var fltrParameter = {
+                $and: [{ 'profile': fltrProfile }, { 'ctc': { $gte: '0 LPA', $lte: '8 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "2") {
+            var fltrParameter = {
+                $and: [{ 'profile': fltrProfile }, { 'ctc': { $gt: '8 LPA', $lte: '15 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "3") {
+            var fltrParameter = {
+                $and: [{ 'profile': fltrProfile }, { 'ctc': { $gt: '15 LPA', $lte: '20 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "4") {
+            var fltrParameter = {
+                $and: [{ 'profile': fltrProfile }, { 'ctc': { $gt: '20 LPA', $lte: '30 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "5") {
+            var fltrParameter = {
+                $and: [{ 'profile': fltrProfile }, { 'ctc': { $gt: '30 LPA' } }]
+            }
         }
     }
-    else if (fltrName == '' && fltrProfile == "" && fltrCTC != "") {
-        var fltrParameter = { 'ctc': fltrCTC }
+    else if (fltrName == '' && fltrProfile == "" && fltrCTC != "Choose...") {
+        if (fltrCTC === "1") {
+            var fltrParameter = {
+                $and: [{ 'ctc': { $gt: '1 LPA', $lte: '8 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "2") {
+            var fltrParameter = {
+                $and: [{ 'ctc': { $gt: '8 LPA', $lte: '15 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "3") {
+            var fltrParameter = {
+                $and: [{ 'ctc': { $gte: '15 LPA', $lte: '20 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "4") {
+            var fltrParameter = {
+                $and: [{ 'ctc': { $gt: '20 LPA', $lte: '30 LPA' } }]
+            }
+        }
+        else if (fltrCTC === "5") {
+            var fltrParameter = {
+                $and: [{ 'ctc': { $gt: '30 LPA' } }]
+            }
+        }
+    }
+    else if (fltrName != '' && fltrProfile == "" && fltrCTC == "Choose...") {
+        var fltrParameter = {
+            $and: [{ 'companyName': fltrName }]
+        }
+    }
+    else if (fltrName == '' && fltrProfile != "" && fltrCTC == "Choose...") {
+        var fltrParameter = {
+            $and: [{ 'profile': fltrProfile }]
+        }
+    }
+    else if (fltrName != '' && fltrProfile != "" && fltrCTC == "Choose...") {
+        var fltrParameter = {
+            $and: [{ 'companyName': fltrName }, { 'profile': fltrProfile }]
+        }
     }
     else {
         var fltrParameter = {}
     }
 
-    console.log(fltrParameter)
-    const jobs = await Jobpost.find(fltrParameter);
-    console.log(jobs);
-    if (jobs.length === 0) {
-        res.send('<h1>No such companies found!</h1>');
+    console.log(fltrParameter['$and'])
+
+
+    const page = parseInt(req.params.page)
+    const pagination = 3
+    const paginatedResults = await Jobpost.paginate(fltrParameter, { page: page, limit: pagination })
+    if (paginatedResults.docs.length === 0) {
+        res.send('<h1>No jobs eh, mate!</h1>');
     } else {
         res.render('home', {
-            jobs
+            total: paginatedResults.total,
+            limit: paginatedResults.limit,
+            page: paginatedResults.page,
+            pages: paginatedResults.pages,
+            jobs: paginatedResults.docs
         });
     }
-
 }

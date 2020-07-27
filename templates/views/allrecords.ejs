@@ -1,38 +1,104 @@
 <%- include('partials/header', {role: 1}) -%>
-<div class='row'>
+<div class="row">
     <h2>The Admin Dashboard</h2>
+</div>
+<div class="row">
     <div>The record finder help the administrator to see the status of the current jobs and the students applied to
         those
         jobs.</div>
     <p>It also gives the status of the students with respect to a particular company.</p>
 </div>
-<div class="row">
-    <% var counter = 1%>
-    <%if (Records.length > 0){%>
-    <ul class="list-unstyled">
-        <%Records.forEach(function(Record) {%>
-        <li class="media" style="margin: 10px;">
-            <div style="margin: auto;margin-right: 10px;font-size: 20px;"><%=counter++%></div>
-            <img src="../../public/img/logo.png" class="mr-3" alt="Company Logo" height="64" width="64">
-            <div class="media-body">
-                <div class="row">
-                    <div class="col-sm-4 col-xs">
-                        <h5 class="mt-0 mb-1">Company Name: <%= Record.job.companyName%></h5>
-                        <h6 class="">Profile: <%=Record.job.profile%></h6>
-                    </div>
-                    <div class="col-sm-8 col-xs">
-                        <ul class="list-group list-group-horizontal">
-                            <li class="list-group-item"><%=Record.student.firstName%> <%=Record.student.lastName%></li>
-                            <li class="list-group-item"><%=Record.student.enrollment%></li>
-                            <li class="list-group-item"><%=Record.student.cgpa%></li>
-                            <li class="list-group-item"><%=Record.jobStatus%></li>
-                        </ul>
+
+<div class='row'>
+    <div class="col-md-6">
+        <h2>Record Finder</h2>
+        <div>Search by Company name and the type of job-post.</div>
+    </div>
+    <div class="col-md-6">
+        <form action="/showrecords" id="CompanyForm" class="form-horizontal" method="POST">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="companyName" class="col-md-12 control-label">By Company Name</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" name="fltrCompName" placeholder="Enter Compnay Name">
                     </div>
                 </div>
             </div>
-        </li>
-        <%});%>
-    </ul>
-    <%}%>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="ctc" class="col-md-12 control-label">By Job Category</label>
+                    <div class="col-md-12">
+                        <select name="fltrCategory" class="form-control">
+                            <option selected>Choose...</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Full Time">Full Time</option>
+                            <option value="Project">Project</option>
+                            <option value="Work From Home">ProWork From Homeject</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" class="form-control btn btn-primary">
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
 </div>
+
+<% var counter = 1%>
+<%if (Records.length > 0){%>
+<div class="row">
+    <h3>Company Name: <h3 class="">
+            <%=Records[0].job.companyName%>
+        </h3>
+    </h3>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h6 class="">Profile: <%=Records[0].job.profile%></h6>
+    </div>
+    <div class="col-md-6">
+        <h6 class="">Job Category: <%=Records[0].job.category%></h6>
+    </div>
+</div>
+<div class="row">
+    <p>The list of Students is as follows:-</p>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Enrollment No.</th>
+            <th scope="col">CGPA</th>
+            <th scope="col">Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%Records.forEach(function(Record) {%>
+        <tr>
+            <th scope="row"><%=counter++%></th>
+            <td><%=Record.student.firstName%></td>
+            <td><%=Record.student.lastName%></td>
+            <td><%=Record.student.enrollment%></td>
+            <td><%=Record.student.cgpa%></td>
+            <td><%=Record.student.department%></td>
+        </tr>
+        <%});%>
+    </tbody>
+</table>
+<%}else{%>
+<p class=""></p>
+<%}%>
+
+
 <%- include('partials/footer') -%>
