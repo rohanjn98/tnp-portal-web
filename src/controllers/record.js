@@ -21,15 +21,19 @@ exports.showJobStatus = async (req, res) => {
     }
 };
 
-exports.showAllJobStatus = (req, res) => {
-    Record.find().exec((error, records) => {
-        if (error || !records) {
-            return res.status(400).json({
-                error: "No records Found"
-            })
-        }
-        res.json(records)
-    })
+exports.showAllJobStatus = async (req, res) => {
+    try {
+        const allRequiredRecords = await Record.find({}).populate("student job", "firstName lastName enrollment cgpa companyName profile").exec();
+        console.log(allRequiredRecords)
+
+        const records = await Record.find().sort('job.companyName').exec()
+        console.log(records)
+        res.render('allrecords', { Records: allRequiredRecords })
+    }
+    catch (e) {
+        res.send('Error: ' + e);
+    }
+
 };
 
 exports.updateJobStatus = async (req, res) => {

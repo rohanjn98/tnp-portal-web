@@ -1,0 +1,38 @@
+<%- include('partials/header', {role: 1}) -%>
+<div class='row'>
+    <h2>The Admin Dashboard</h2>
+    <div>The record finder help the administrator to see the status of the current jobs and the students applied to
+        those
+        jobs.</div>
+    <p>It also gives the status of the students with respect to a particular company.</p>
+</div>
+<div class="row">
+    <% var counter = 1%>
+    <%if (Records.length > 0){%>
+    <ul class="list-unstyled">
+        <%Records.forEach(function(Record) {%>
+        <li class="media" style="margin: 10px;">
+            <div style="margin: auto;margin-right: 10px;font-size: 20px;"><%=counter++%></div>
+            <img src="../../public/img/logo.png" class="mr-3" alt="Company Logo" height="64" width="64">
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-sm-4 col-xs">
+                        <h5 class="mt-0 mb-1">Company Name: <%= Record.job.companyName%></h5>
+                        <h6 class="">Profile: <%=Record.job.profile%></h6>
+                    </div>
+                    <div class="col-sm-8 col-xs">
+                        <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item"><%=Record.student.firstName%> <%=Record.student.lastName%></li>
+                            <li class="list-group-item"><%=Record.student.enrollment%></li>
+                            <li class="list-group-item"><%=Record.student.cgpa%></li>
+                            <li class="list-group-item"><%=Record.jobStatus%></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <%});%>
+    </ul>
+    <%}%>
+</div>
+<%- include('partials/footer') -%>
